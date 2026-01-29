@@ -177,7 +177,7 @@ export default function LoginPage() {
                       mb: 0.25,
                     }}
                   >
-                    CLIMATE RISK PLATFORM
+                    ESG NAVIGATOR
                   </Typography>
                 </Box>
               </Box>
@@ -210,7 +210,7 @@ export default function LoginPage() {
                     fontWeight: 400,
                   }}
                 >
-                  Sign in to access your climate risk assessment dashboard
+                  Sign in to access your ESG Navigator dashboard
                 </Typography>
               </Stack>
             </Box>

@@ -13,7 +13,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
     <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: isDark ? "#0F172A" : "#F8FAFC",
+        backgroundColor: isDark ? "#0F172A" : "#FFF",
         position: "relative",
         overflow: "hidden",
         display: "flex",
@@ -21,6 +21,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         justifyContent: "center",
       }}
     >
+      {/* Video background */}
       <Box
         component="video"
         autoPlay
@@ -34,9 +35,12 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          opacity: isDark ? 0.15 : 0.2,
+          opacity: isDark ? 0.12 : 0.05,
           zIndex: 0,
-          filter: isDark ? "brightness(50%)" : "brightness(110%)",
+          filter: isDark
+            ? "brightness(70%) grayscale(20%)"
+            : "brightness(120%) grayscale(100%)",
+          transition: "opacity 0.4s",
         }}
       >
         <source
@@ -45,6 +49,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         />
       </Box>
 
+      {/* Overlay for contrast */}
       <Box
         sx={{
           position: "absolute",
@@ -52,9 +57,9 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           left: 0,
           width: "100%",
           height: "100%",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          background: isDark ? alpha("#0F172A", 0.8) : alpha("#FFFFFF", 0.9),
+          background: isDark ? alpha("#0F172A", 0.65) : alpha("#FFFFFF", 0.7),
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
           zIndex: 1,
         }}
       />

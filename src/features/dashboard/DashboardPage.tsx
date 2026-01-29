@@ -35,18 +35,18 @@ export default function DashboardPage() {
           mb={2}
           sx={{ color: isDark ? "#fff" : "#0F172A" }}
         >
-          Welcome, {user.name}
+          Hi, {user.name}
         </Typography>
 
-        <Typography
+        {/* <Typography
           variant="subtitle1"
           mb={4}
           sx={{ color: isDark ? alpha("#FDB913", 0.8) : "#FDB913" }}
         >
           Role: {user.role.replace("_", " ").toUpperCase()}
-        </Typography>
+        </Typography> */}
 
-        <Grid container spacing={3}>
+        {/* <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <PermissionGuard permission={Permission.VIEW_DASHBOARD}>
               <Card
@@ -115,7 +115,7 @@ export default function DashboardPage() {
               </Card>
             </PermissionGuard>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Box>
     </Box>
   );

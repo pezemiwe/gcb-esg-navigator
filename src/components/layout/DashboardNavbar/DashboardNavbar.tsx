@@ -23,6 +23,9 @@ export default function DashboardNavbar() {
   const { user, logout } = useAuthStore();
   const { permissions } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [modulesAnchorEl, setModulesAnchorEl] = useState<null | HTMLElement>(
+    null,
+  );
 
   if (!user) return null;
 
@@ -35,6 +38,13 @@ export default function DashboardNavbar() {
   const handleLogout = () => {
     logout();
     window.location.href = "/login";
+  };
+  // Handlers for modules menu
+  const handleModulesMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setModulesAnchorEl(event.currentTarget);
+  };
+  const handleModulesClose = () => {
+    setModulesAnchorEl(null);
   };
 
   return (
@@ -70,22 +80,46 @@ export default function DashboardNavbar() {
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          {/* Modules dropdown menu */}
+          <Button
+            color="inherit"
+            onClick={handleModulesMenu}
+            sx={{ fontWeight: 600 }}
+          >
+            Modules
+          </Button>
+          <Menu
+            anchorEl={modulesAnchorEl}
+            open={Boolean(modulesAnchorEl)}
+            onClose={handleModulesClose}
+          >
+            <MenuItem onClick={handleModulesClose} component="a" href="#">
+              Credit Risk Rating
+            </MenuItem>
+            <MenuItem onClick={handleModulesClose} component="a" href="#">
+              Portfolio Analysis
+            </MenuItem>
+            <MenuItem onClick={handleModulesClose} component="a" href="#">
+              IFRS 9 ECL
+            </MenuItem>
+            <MenuItem onClick={handleModulesClose} component="a" href="#">
+              EIR
+            </MenuItem>
+            <MenuItem onClick={handleModulesClose} component="a" href="#">
+              Collateral Management
+            </MenuItem>
+          </Menu>
           {/* Example nav links based on permissions */}
-          {permissions.includes(Permission.VIEW_DASHBOARD) && (
+          {/* {permissions.includes(Permission.VIEW_DASHBOARD) && (
             <Button color="inherit" href="/dashboard" sx={{ fontWeight: 600 }}>
               Dashboard
-            </Button>
-          )}
-          {permissions.includes(Permission.VIEW_CRA_DATA) && (
-            <Button color="inherit" href="#" sx={{ fontWeight: 600 }}>
-              CRA Data
             </Button>
           )}
           {permissions.includes(Permission.MANAGE_USERS) && (
             <Button color="inherit" href="#" sx={{ fontWeight: 600 }}>
               Users
             </Button>
-          )}
+          )} */}
           <IconButton onClick={handleMenu} sx={{ ml: 1 }}>
             <Avatar
               src={user.avatar}
