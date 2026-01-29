@@ -17,6 +17,11 @@ import {
   Analytics,
   Brightness4,
   Brightness7,
+  Shield,
+  ShowChart,
+  EmojiEvents,
+  School,
+  Note,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useState, useLayoutEffect } from "react";
@@ -55,6 +60,7 @@ export default function BankingLandingPage() {
         flexDirection: "column",
       }}
     >
+      {/* Video Background Layer - zIndex: 0 */}
       <Box
         component="video"
         autoPlay
@@ -68,11 +74,8 @@ export default function BankingLandingPage() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          opacity: isDark ? 0.15 : 0.08,
+          opacity: isDark ? 0.1 : 0.2,
           zIndex: 0,
-          filter: isDark
-            ? "brightness(70%) grayscale(20%)"
-            : "brightness(120%) grayscale(100%)",
         }}
       >
         <source
@@ -81,6 +84,7 @@ export default function BankingLandingPage() {
         />
       </Box>
 
+      {/* Gradient Overlay - zIndex: 1 */}
       <Box
         sx={{
           position: "absolute",
@@ -88,20 +92,117 @@ export default function BankingLandingPage() {
           left: 0,
           width: "100%",
           height: "100%",
-          background: isDark ? alpha("#0F172A", 0.25) : alpha("#FFFFFF", 0.25),
+          background: isDark
+            ? `linear-gradient(to bottom, 
+                ${alpha("#0F172A", 0.8)} 0%, 
+                ${alpha("#0F172A", 0.6)} 50%, 
+                ${alpha("#0F172A", 0.9)} 100%)`
+            : `linear-gradient(to bottom, 
+                ${alpha("#FFFFFF", 0.8)} 0%, 
+                ${alpha("#FFFFFF", 0.6)} 50%, 
+                ${alpha("#FFFFFF", 0.9)} 100%)`,
           zIndex: 1,
         }}
       />
 
+      {/* Animated Blur Orbs - zIndex: 2 */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "1000px",
+          height: "1000px",
+          borderRadius: "50%",
+          background: alpha("#FDB913", 0.25),
+          filter: "blur(180px)",
+          zIndex: 2,
+          pointerEvents: "none",
+          animation: "pulse 10s ease-in-out infinite",
+          "@keyframes pulse": {
+            "0%, 100%": { opacity: 1 },
+            "50%": { opacity: 0.6 },
+          },
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "-160px",
+          left: "-160px",
+          width: "600px",
+          height: "600px",
+          borderRadius: "50%",
+          background: alpha("#D97706", 0.2),
+          filter: "blur(150px)",
+          zIndex: 2,
+          pointerEvents: "none",
+          animation: "pulse 12s ease-in-out infinite",
+          animationDelay: "3s",
+        }}
+      />
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: "-80px",
+          right: "-80px",
+          width: "500px",
+          height: "500px",
+          borderRadius: "50%",
+          background: alpha("#FDB913", 0.15),
+          filter: "blur(120px)",
+          zIndex: 2,
+          pointerEvents: "none",
+          animation: "pulse 14s ease-in-out infinite",
+          animationDelay: "5s",
+        }}
+      />
+
+      {/* Grid Pattern Overlay - zIndex: 2 */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          opacity: 0.08,
+          backgroundImage: `
+            linear-gradient(${alpha("#FDB913", 0.3)} 1px, transparent 1px),
+            linear-gradient(90deg, ${alpha("#FDB913", 0.3)} 1px, transparent 1px)
+          `,
+          backgroundSize: "80px 80px",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Radial Gradient Accent - zIndex: 2 */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: `radial-gradient(ellipse 80% 50% at 50% -20%, ${alpha("#FDB913", 0.15)}, transparent)`,
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Main Content - zIndex: 3 */}
       <Box
         sx={{
           position: "relative",
-          zIndex: 2,
+          zIndex: 3,
           flex: 1,
           display: "flex",
           flexDirection: "column",
         }}
       >
+        {/* Header */}
         <Box
           sx={{
             backgroundColor: isDark
@@ -185,7 +286,7 @@ export default function BankingLandingPage() {
                     },
                   }}
                 >
-                  Enter Platform
+                  Select Module
                 </Button>
                 {/* Modules dropdown menu */}
                 <Menu
@@ -194,18 +295,320 @@ export default function BankingLandingPage() {
                   onClose={handleModulesClose}
                   anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                   transformOrigin={{ vertical: "top", horizontal: "right" }}
+                  PaperProps={{
+                    sx: {
+                      mt: 1,
+                      minWidth: 300,
+                      borderRadius: "12px",
+                      backgroundColor: isDark ? "#1E293B" : "#F8FAFC",
+                      border: `1px solid ${isDark ? alpha("#334155", 0.4) : "#E2E8F0"}`,
+                      boxShadow: `0 10px 40px ${alpha("#000000", isDark ? 0.5 : 0.08)}`,
+                      "& .MuiList-root": {
+                        py: 1.5,
+                        px: 1,
+                      },
+                    },
+                  }}
                 >
-                  <MenuItem onClick={handleModulesClose}>
-                    Climate Risk Assessment
+                  <Box
+                    sx={{
+                      px: 2,
+                      py: 1.5,
+                      borderBottom: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
+                      mb: 1,
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "0.75rem",
+                        fontWeight: 600,
+                        color: isDark ? "#94A3B8" : "#64748B",
+                        letterSpacing: "0.05em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Modules
+                    </Typography>
+                  </Box>
+                  <MenuItem
+                    onClick={handleModulesClose}
+                    sx={{
+                      py: 1.5,
+                      px: 2,
+                      mx: 0.5,
+                      borderRadius: "6px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      "&:hover": {
+                        backgroundColor: isDark
+                          ? alpha("#334155", 0.6)
+                          : "#FFFFFF",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: "8px",
+                        backgroundColor: isDark
+                          ? alpha("#475569", 0.3)
+                          : "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Shield sx={{ fontSize: 18, color: "#64748B" }} />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography
+                        sx={{
+                          fontSize: "0.875rem",
+                          fontWeight: 600,
+                          color: isDark ? "#FFFFFF" : "#0F172A",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        Climate Risk Assessment
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "0.75rem",
+                          color: isDark ? "#94A3B8" : "#64748B",
+                          lineHeight: 1.3,
+                          mt: 0.25,
+                        }}
+                      >
+                        Risk evaluation & analysis
+                      </Typography>
+                    </Box>
                   </MenuItem>
-                  <MenuItem onClick={handleModulesClose}>
-                    Scenario Analysis & Stress Testing
+                  <MenuItem
+                    onClick={handleModulesClose}
+                    sx={{
+                      py: 1.5,
+                      px: 2,
+                      mx: 0.5,
+                      borderRadius: "6px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      "&:hover": {
+                        backgroundColor: isDark
+                          ? alpha("#334155", 0.6)
+                          : "#FFFFFF",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: "8px",
+                        backgroundColor: isDark
+                          ? alpha("#475569", 0.3)
+                          : "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <ShowChart sx={{ fontSize: 18, color: "#64748B" }} />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography
+                        sx={{
+                          fontSize: "0.875rem",
+                          fontWeight: 600,
+                          color: isDark ? "#FFFFFF" : "#0F172A",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        Scenario Analysis & Stress Testing
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "0.75rem",
+                          color: isDark ? "#94A3B8" : "#64748B",
+                          lineHeight: 1.3,
+                          mt: 0.25,
+                        }}
+                      >
+                        Stress testing & analytics
+                      </Typography>
+                    </Box>
                   </MenuItem>
-                  <MenuItem onClick={handleModulesClose}>
-                    SDG & NDC Alignment
+                  <MenuItem
+                    onClick={handleModulesClose}
+                    sx={{
+                      py: 1.5,
+                      px: 2,
+                      mx: 0.5,
+                      borderRadius: "6px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      "&:hover": {
+                        backgroundColor: isDark
+                          ? alpha("#334155", 0.6)
+                          : "#FFFFFF",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: "8px",
+                        backgroundColor: isDark
+                          ? alpha("#475569", 0.3)
+                          : "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <EmojiEvents sx={{ fontSize: 18, color: "#64748B" }} />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography
+                        sx={{
+                          fontSize: "0.875rem",
+                          fontWeight: 600,
+                          color: isDark ? "#FFFFFF" : "#0F172A",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        SDG & NDC Alignment
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "0.75rem",
+                          color: isDark ? "#94A3B8" : "#64748B",
+                          lineHeight: 1.3,
+                          mt: 0.25,
+                        }}
+                      >
+                        Sustainability goals
+                      </Typography>
+                    </Box>
                   </MenuItem>
-                  <MenuItem onClick={handleModulesClose}>
-                    Capacity building
+                  <MenuItem
+                    onClick={handleModulesClose}
+                    sx={{
+                      py: 1.5,
+                      px: 2,
+                      mx: 0.5,
+                      borderRadius: "6px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      "&:hover": {
+                        backgroundColor: isDark
+                          ? alpha("#334155", 0.6)
+                          : "#FFFFFF",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: "8px",
+                        backgroundColor: isDark
+                          ? alpha("#475569", 0.3)
+                          : "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <School sx={{ fontSize: 18, color: "#64748B" }} />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography
+                        sx={{
+                          fontSize: "0.875rem",
+                          fontWeight: 600,
+                          color: isDark ? "#FFFFFF" : "#0F172A",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        Capacity Building
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "0.75rem",
+                          color: isDark ? "#94A3B8" : "#64748B",
+                          lineHeight: 1.3,
+                          mt: 0.25,
+                        }}
+                      >
+                        Training & development
+                      </Typography>
+                    </Box>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleModulesClose}
+                    sx={{
+                      py: 1.5,
+                      px: 2,
+                      mx: 0.5,
+                      borderRadius: "6px",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      "&:hover": {
+                        backgroundColor: isDark
+                          ? alpha("#334155", 0.6)
+                          : "#FFFFFF",
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: "8px",
+                        backgroundColor: isDark
+                          ? alpha("#475569", 0.3)
+                          : "#FFFFFF",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Note sx={{ fontSize: 18, color: "#64748B" }} />
+                    </Box>
+                    <Box sx={{ flex: 1 }}>
+                      <Typography
+                        sx={{
+                          fontSize: "0.875rem",
+                          fontWeight: 600,
+                          color: isDark ? "#FFFFFF" : "#0F172A",
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        Materiality Topic Assessment
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "0.75rem",
+                          color: isDark ? "#94A3B8" : "#64748B",
+                          lineHeight: 1.3,
+                          mt: 0.25,
+                        }}
+                      >
+                        Assess materiality topics
+                      </Typography>
+                    </Box>
                   </MenuItem>
                 </Menu>
               </Stack>
@@ -213,6 +616,7 @@ export default function BankingLandingPage() {
           </Container>
         </Box>
 
+        {/* Hero Content */}
         <Container
           maxWidth="lg"
           sx={{
@@ -347,8 +751,7 @@ export default function BankingLandingPage() {
                     }}
                   >
                     Comprehensive climate risk assessment and management
-                    platform tailored for banks and financial institutions in
-                    emerging markets.
+                    platform
                   </Typography>
 
                   <Stack
@@ -495,9 +898,10 @@ export default function BankingLandingPage() {
 
                   {[
                     "Climate Risk Assessment",
-                    "Scenario Analysis & Stress Testing",
                     "SDG & NDC Alignment",
                     "Capacity Building",
+                    "Materiality Topic Assessment",
+                    "Scenario Analysis & Stress Testing",
                   ].map((module, index) => (
                     <Box
                       key={index}
@@ -555,6 +959,7 @@ export default function BankingLandingPage() {
           </Box>
         </Container>
 
+        {/* Footer */}
         <Box
           sx={{
             borderTop: `1px solid ${isDark ? alpha("#475569", 0.3) : alpha("#E2E8F0", 0.8)}`,
@@ -632,318 +1037,3 @@ export default function BankingLandingPage() {
     </Box>
   );
 }
-
-// import { Link } from "react-router-dom";
-// import { Tooltip } from "./Tooltip";
-// import { ASSET_BASE } from '../../api/client'
-
-// interface HighlightItem {
-//   title: string;
-//   copy: string;
-// }
-
-// interface HeroSectionProps {
-//   liveModuleNames: string;
-//   heroHighlights: HighlightItem[];
-//   primaryCtaHref: string;
-//   primaryCtaLabel: string;
-//   secondaryCtaHref: string;
-//   secondaryCtaLabel: string;
-//   onNavigateToHash: (hash: string) => void;
-// }
-
-// const featureIcons = [
-//   <svg
-//     key="shield"
-//     className="h-5 w-5"
-//     fill="none"
-//     viewBox="0 0 24 24"
-//     stroke="currentColor"
-//     strokeWidth={2}
-//   >
-//     <path
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//       d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-//     />
-//   </svg>,
-//   <svg
-//     key="chart"
-//     className="h-5 w-5"
-//     fill="none"
-//     viewBox="0 0 24 24"
-//     stroke="currentColor"
-//     strokeWidth={2}
-//   >
-//     <path
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//       d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-//     />
-//   </svg>,
-//   <svg
-//     key="doc"
-//     className="h-5 w-5"
-//     fill="none"
-//     viewBox="0 0 24 24"
-//     stroke="currentColor"
-//     strokeWidth={2}
-//   >
-//     <path
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//       d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-//     />
-//   </svg>,
-//   <svg
-//     key="cog"
-//     className="h-5 w-5"
-//     fill="none"
-//     viewBox="0 0 24 24"
-//     stroke="currentColor"
-//     strokeWidth={2}
-//   >
-//     <path
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//       d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-//     />
-//     <path
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//       d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-//     />
-//   </svg>,
-// ];
-
-// export function HeroSection({
-//   liveModuleNames,
-//   heroHighlights,
-//   primaryCtaHref,
-//   primaryCtaLabel,
-//   secondaryCtaHref,
-//   secondaryCtaLabel,
-//   onNavigateToHash,
-// }: HeroSectionProps) {
-//   return (
-//     <div className="relative isolate min-h-[92vh] overflow-hidden">
-//       <div className="absolute inset-0" style={{ zIndex: 0 }}>
-//         <video
-//           autoPlay
-//           loop
-//           muted
-//           playsInline
-//           preload="auto"
-//           className="h-full w-full object-cover opacity-20 dark:opacity-10"
-//           onLoadedData={(e) => {
-//             const video = e.currentTarget;
-//             video.play().catch(() => {
-//               console.log("Video autoplay prevented");
-//             });
-//           }}
-//         >
-//           <source src={`${ASSET_BASE}/static/assets/video/office.mp4`} type="video/mp4" />
-//         </video>
-//       </div>
-
-//       <div className="absolute inset-0 bg-gradient-to-b from-[var(--bg)]/80 via-[var(--bg)]/60 to-[var(--bg)]/90" style={{ zIndex: 1 }} />
-
-//       <div className="pointer-events-none absolute inset-0" style={{ zIndex: 2 }}>
-//         <div
-//           className="absolute left-1/2 top-0 h-[1000px] w-[1000px] -translate-x-1/2 rounded-full bg-[var(--primary)]/25 blur-[180px]"
-//           style={{ animation: "pulse 10s ease-in-out infinite" }}
-//           aria-hidden="true"
-//         />
-//         <div
-//           className="absolute -bottom-40 -left-40 h-[600px] w-[600px] rounded-full bg-[var(--primary-600)]/20 blur-[150px]"
-//           style={{
-//             animation: "pulse 12s ease-in-out infinite",
-//             animationDelay: "3s",
-//           }}
-//           aria-hidden="true"
-//         />
-//         <div
-//           className="absolute -bottom-20 -right-20 h-[500px] w-[500px] rounded-full bg-[var(--primary)]/15 blur-[120px]"
-//           style={{
-//             animation: "pulse 14s ease-in-out infinite",
-//             animationDelay: "5s",
-//           }}
-//           aria-hidden="true"
-//         />
-//       </div>
-
-//       <div
-//         className="pointer-events-none absolute inset-0 opacity-[0.08]"
-//         style={{
-//           backgroundImage: `
-//             linear-gradient(rgba(134, 188, 37, 0.3) 1px, transparent 1px),
-//             linear-gradient(90deg, rgba(134, 188, 37, 0.3) 1px, transparent 1px)
-//           `,
-//           backgroundSize: "80px 80px",
-//           zIndex: 2,
-//         }}
-//         aria-hidden="true"
-//       />
-
-//       <div
-//         className="pointer-events-none absolute inset-0"
-//         style={{
-//           background:
-//             "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(134, 188, 37, 0.15), transparent)",
-//           zIndex: 2,
-//         }}
-//         aria-hidden="true"
-//       />
-
-//       <section className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24" style={{ zIndex: 3 }}>
-//         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16 lg:items-end">
-//           <div className="max-w-3xl space-y-8">
-//             <div className="space-y-1">
-//               <h1 className="text-6xl font-black leading-[1.05] tracking-tight text-[var(--text-strong)] dark:text-slate-100 sm:text-7xl lg:text-8xl">
-//                 Credit Risk
-//               </h1>
-//               <div className="relative">
-//                 <span
-//                   className="absolute inset-0 bg-gradient-to-r from-[var(--primary)] via-[#a8e04f] to-[var(--primary-600)] bg-clip-text text-6xl font-black tracking-tight text-transparent blur-xl opacity-60 sm:text-7xl lg:text-8xl"
-//                   aria-hidden="true"
-//                 >
-//                   Management
-//                 </span>
-//                 <span className="relative bg-gradient-to-r from-[var(--primary)] via-[#a8e04f] to-[var(--primary-600)] bg-clip-text text-6xl font-black tracking-tight text-transparent sm:text-7xl lg:text-8xl">
-//                   Management
-//                 </span>
-//               </div>
-//             </div>
-
-//             <div className="flex items-center gap-4">
-//               <div className="h-[2px] w-16 bg-gradient-to-r from-[var(--primary)] to-transparent"></div>
-//               <span className="text-2xl font-semibold tracking-wide text-[var(--text-strong)] dark:text-slate-300 sm:text-3xl">
-//                 Simplified
-//               </span>
-//             </div>
-
-//             <p className="text-lg leading-relaxed text-[var(--muted)] dark:text-white/70 sm:text-xl max-w-2xl">
-//               Launch purpose-built workspaces with our comprehensive demo
-//               portfolio.{" "}
-//               <Tooltip content="International Financial Reporting Standard 9 - Expected Credit Loss accounting">
-//                 <span className="font-medium text-[var(--text)] dark:text-white/90 underline decoration-[var(--primary)]/30 underline-offset-2">IFRS 9</span>
-//               </Tooltip>{" "}
-//               compliance,{" "}
-//               <Tooltip content="Basel Standardised Approach - regulatory capital requirements">
-//                 <span className="font-medium text-[var(--text)] dark:text-white/90 underline decoration-[var(--primary)]/30 underline-offset-2">Basel SA</span>
-//               </Tooltip>{" "}
-//               capital calculations, and portfolio analytics—all in one platform
-//               with built-in governance.
-//             </p>
-
-//             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-//               <Link
-//                 to={primaryCtaHref}
-//                 className="group relative inline-flex items-center justify-center gap-3 overflow-hidden rounded-xl px-10 py-4 text-base font-semibold shadow-xl transition-all duration-300 hover:shadow-2xl hover:no-underline"
-//                 style={{
-//                   background:
-//                     "linear-gradient(135deg, var(--primary) 0%, var(--primary-600) 50%, var(--primary) 100%)",
-//                   backgroundSize: "200% 200%",
-//                   animation: "shimmer 3s ease-in-out infinite",
-//                   boxShadow:
-//                     "0 10px 40px -10px rgba(134, 188, 37, 0.5)",
-//                 }}
-//               >
-//                 <span className="relative z-10 text-[#041003]">
-//                   {primaryCtaLabel}
-//                 </span>
-//                 <svg
-//                   className="relative z-10 h-4 w-4 text-[#041003] transition-transform duration-300 group-hover:translate-x-1"
-//                   fill="none"
-//                   viewBox="0 0 24 24"
-//                   stroke="currentColor"
-//                   strokeWidth={2.5}
-//                 >
-//                   <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     d="M13 7l5 5m0 0l-5 5m5-5H6"
-//                   />
-//                 </svg>
-//               </Link>
-
-//               <a
-//                 href={secondaryCtaHref}
-//                 onClick={(event) => {
-//                   event.preventDefault();
-//                   onNavigateToHash(secondaryCtaHref);
-//                 }}
-//                 className="group inline-flex items-center justify-center gap-3 rounded-xl border border-[var(--border)] dark:border-slate-700/50 bg-transparent px-10 py-4 text-base font-semibold text-[var(--text-strong)] dark:text-white transition-all duration-300 hover:border-[var(--primary)]/50 hover:bg-[var(--surface)] dark:hover:bg-slate-800/50 hover:no-underline"
-//               >
-//                 {secondaryCtaLabel}
-//                 <svg
-//                   className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5"
-//                   fill="none"
-//                   viewBox="0 0 24 24"
-//                   stroke="currentColor"
-//                   strokeWidth={2.5}
-//                 >
-//                   <path
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     d="M19 9l-7 7-7-7"
-//                   />
-//                 </svg>
-//               </a>
-//             </div>
-
-//             <div className="flex flex-wrap gap-6 pt-4 text-sm text-[var(--muted)] dark:text-white/60">
-//               <div className="flex items-center gap-2">
-//                 <div className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]"></div>
-//                 <span>Basel III Compliant</span>
-//               </div>
-//               <div className="flex items-center gap-2">
-//                 <div className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]"></div>
-//                 <span>IFRS 9 Ready</span>
-//               </div>
-//               <div className="flex items-center gap-2">
-//                 <div className="h-1.5 w-1.5 rounded-full bg-[var(--primary)]"></div>
-//                 <span>Enterprise Security</span>
-//               </div>
-//             </div>
-//           </div>
-
-//           <div className="space-y-4 lg:pt-8">
-//             {heroHighlights.map((item, index) => (
-//               <div
-//                 key={item.title}
-//                 className="group relative overflow-hidden rounded-2xl bg-[var(--surface)] dark:bg-slate-900/40 border border-[var(--border)] dark:border-slate-800/60 p-6 backdrop-blur-sm transition-all duration-300 hover:border-[var(--primary)]/40 hover:shadow-lg hover:shadow-[var(--primary)]/5"
-//               >
-//                 <div className="flex items-start gap-5">
-//                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--primary)]/10 text-[var(--primary)] transition-all duration-300 group-hover:bg-[var(--primary)]/15 group-hover:scale-105">
-//                     {featureIcons[index % featureIcons.length]}
-//                   </div>
-
-//                   <div className="flex-1 space-y-1.5">
-//                     <h3 className="text-base font-semibold leading-tight text-[var(--text-strong)] dark:text-white transition-colors duration-300 group-hover:text-[var(--primary)]">
-//                       {item.title}
-//                     </h3>
-//                     <p className="text-sm leading-relaxed text-[var(--muted)] dark:text-white/65">
-//                       {item.copy}
-//                     </p>
-//                   </div>
-//                 </div>
-
-//                 <div className="absolute right-0 top-0 h-full w-1 bg-gradient-to-b from-[var(--primary)]/0 via-[var(--primary)]/40 to-[var(--primary)]/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       <style>{`
-//         @keyframes shimmer {
-//           0%, 100% { background-position: 0% 50%; }
-//           50% { background-position: 100% 50%; }
-//         }
-//       `}</style>
-//     </div>
-//   );
-// }
-
-// export default HeroSection;
