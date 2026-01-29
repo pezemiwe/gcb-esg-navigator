@@ -8,7 +8,22 @@ import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 const LandingPage = lazy(() => import("@/features/landing/LandingPage"));
 const LoginPage = lazy(() => import("@/features/auth/LoginPage"));
 const DashboardPage = lazy(() => import("@/features/dashboard/DashboardPage"));
+const CRAOverview = lazy(() => import("@/features/cra/pages/CRAOverview"));
 const CRADataUpload = lazy(() => import("@/features/cra/CRADataUpload"));
+const PortfolioSegmentation = lazy(
+  () => import("@/features/cra/pages/PortfolioSegmentation"),
+);
+const PhysicalRiskAssessment = lazy(
+  () => import("@/features/cra/pages/PhysicalRiskAssessment"),
+);
+const TransitionRiskAssessment = lazy(
+  () => import("@/features/cra/pages/TransitionRiskAssessment"),
+);
+const CollateralSensitivity = lazy(
+  () => import("@/features/cra/pages/CollateralSensitivity"),
+);
+const CRAReporting = lazy(() => import("@/features/cra/pages/CRAReporting"));
+const DataViewer = lazy(() => import("@/features/cra/pages/DataViewer"));
 
 function LoadingFallback() {
   return (
@@ -50,7 +65,19 @@ export default function AppRoutes() {
           path="/cra"
           element={
             <AuthGuard>
-              <DashboardPage />
+              <RoleGuard
+                allowedRoles={[
+                  UserRole.ADMIN,
+                  UserRole.ESG_MANAGER,
+                  UserRole.RISK_ANALYST,
+                  UserRole.PORTFOLIO_MANAGER,
+                  UserRole.EXECUTIVE,
+                ]}
+              >
+                <ErrorBoundary>
+                  <CRAOverview />
+                </ErrorBoundary>
+              </RoleGuard>
             </AuthGuard>
           }
         />
@@ -75,6 +102,27 @@ export default function AppRoutes() {
         />
 
         <Route
+          path="/cra/data/:assetTypeId"
+          element={
+            <AuthGuard>
+              <RoleGuard
+                allowedRoles={[
+                  UserRole.ADMIN,
+                  UserRole.ESG_MANAGER,
+                  UserRole.DATA_ENTRY,
+                  UserRole.RISK_ANALYST,
+                  UserRole.PORTFOLIO_MANAGER,
+                ]}
+              >
+                <ErrorBoundary>
+                  <DataViewer />
+                </ErrorBoundary>
+              </RoleGuard>
+            </AuthGuard>
+          }
+        />
+
+        <Route
           path="/cra/segmentation"
           element={
             <AuthGuard>
@@ -86,7 +134,9 @@ export default function AppRoutes() {
                   UserRole.PORTFOLIO_MANAGER,
                 ]}
               >
-                <DashboardPage />
+                <ErrorBoundary>
+                  <PortfolioSegmentation />
+                </ErrorBoundary>
               </RoleGuard>
             </AuthGuard>
           }
@@ -103,7 +153,9 @@ export default function AppRoutes() {
                   UserRole.RISK_ANALYST,
                 ]}
               >
-                <DashboardPage />
+                <ErrorBoundary>
+                  <PhysicalRiskAssessment />
+                </ErrorBoundary>
               </RoleGuard>
             </AuthGuard>
           }
@@ -120,7 +172,9 @@ export default function AppRoutes() {
                   UserRole.RISK_ANALYST,
                 ]}
               >
-                <DashboardPage />
+                <ErrorBoundary>
+                  <TransitionRiskAssessment />
+                </ErrorBoundary>
               </RoleGuard>
             </AuthGuard>
           }
@@ -137,7 +191,9 @@ export default function AppRoutes() {
                   UserRole.RISK_ANALYST,
                 ]}
               >
-                <DashboardPage />
+                <ErrorBoundary>
+                  <CollateralSensitivity />
+                </ErrorBoundary>
               </RoleGuard>
             </AuthGuard>
           }
@@ -155,7 +211,9 @@ export default function AppRoutes() {
                   UserRole.EXECUTIVE,
                 ]}
               >
-                <DashboardPage />
+                <ErrorBoundary>
+                  <CRAReporting />
+                </ErrorBoundary>
               </RoleGuard>
             </AuthGuard>
           }

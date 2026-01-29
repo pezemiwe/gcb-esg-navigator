@@ -1,13 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  Upload,
   Download,
   Search,
-  Filter,
   FileSpreadsheet,
   AlertCircle,
   CheckCircle2,
-  Info,
   FileText,
   TrendingUp,
   Database,
@@ -33,19 +31,13 @@ import {
   Chip,
   alpha,
   useTheme,
-  LinearProgress,
   Alert,
   IconButton,
-  Menu,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
-  Tooltip,
   CircularProgress,
-  Grid,
 } from "@mui/material";
 import CRALayout from "./layout/CRALayout";
+import { useCRADataStore, useCRAStatusStore } from "@/store/craStore";
+import type { Asset, AssetTypeData } from "@/store/craStore";
 
 import { downloadExcelTemplate } from "./utils/excelTemplates";
 
@@ -67,8 +59,10 @@ interface AssetType {
 const CRADataUpload: React.FC = () => {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
+  const navigate = useNavigate();
+  const { setAssetData, clearAssetData } = useCRADataStore();
+  const { updateStatus } = useCRAStatusStore();
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterCategory, setFilterCategory] = useState("all");
   const [expandedAsset, setExpandedAsset] = useState<string | null>(null);
   const [uploadQueue, setUploadQueue] = useState<string[]>([]);
 
@@ -320,11 +314,6 @@ const CRADataUpload: React.FC = () => {
     },
   ]);
 
-  const categories = [
-    "all",
-    ...new Set(assetTypes.map((asset) => asset.category)),
-  ];
-
   const handleFileUpload = async (assetTypeId: string, file: File) => {
     setUploadQueue((prev) => [...prev, assetTypeId]);
 
@@ -340,16 +329,48 @@ const CRADataUpload: React.FC = () => {
 
     setUploadQueue((prev) => prev.filter((id) => id !== assetTypeId));
 
+    const success = Math.random() > 0.2;
+    const rowCount = Math.floor(Math.random() * 5000) + 500;
+    const columnCount = Math.floor(Math.random() * 15) + 8;
+
+    if (success) {
+      const mockAssets: Asset[] = Array.from({ length: rowCount }, (_, i) => ({
+        id: `${assetTypeId.toUpperCase()}-${String(i + 1).padStart(5, "0")}`,
+        facilityId: `FAC-${String(i + 1).padStart(6, "0")}`,
+        borrowerName: `Entity ${i + 1}`,
+        sector: ["Financial Services", "Energy", "Technology", "Manufacturing", "Real Estate", "Healthcare"][i % 6],
+        region: ["Greater Accra", "Ashanti", "Western", "Eastern", "Northern", "Central"][i % 6],
+        outstandingBalance: Math.floor(Math.random() * 10000000) + 500000,
+        currency: "GHS",
+        latitude: 5.6 + (Math.random() * 4),
+        longitude: -2.5 + (Math.random() * 4),
+        status: ["Active", "Active", "Active", "Restructured"][i % 4],
+      }));
+
+      const assetData: AssetTypeData = {
+        type: assetTypeId,
+        data: mockAssets,
+        uploadedAt: new Date().toISOString(),
+        fileName: file.name,
+        rowCount: rowCount,
+        columnCount: columnCount,
+        validationStatus: "validated",
+        validationErrors: [],
+      };
+
+      setAssetData(assetTypeId, assetData);
+      updateStatus("dataUploaded", true);
+    }
+
     setAssetTypes((prev) =>
       prev.map((asset) => {
         if (asset.id === assetTypeId) {
-          const success = Math.random() > 0.2;
           return {
             ...asset,
             uploadedFile: file,
             uploadedDate: new Date().toISOString(),
-            rowCount: Math.floor(Math.random() * 10000) + 1000,
-            columnCount: Math.floor(Math.random() * 20) + 5,
+            rowCount: rowCount,
+            columnCount: columnCount,
             status: success ? "validated" : "error",
             validationErrors: success
               ? undefined
@@ -366,7 +387,7 @@ const CRADataUpload: React.FC = () => {
 
   const handleDownloadTemplate = (assetTypeId: string) => {
     try {
-      downloadExcelTemplate(assetTypeId as keyof typeof TEMPLATE_DEFINITIONS);
+      downloadExcelTemplate(assetTypeId as any);
     } catch (error) {
       alert("Failed to download template: " + (error as Error).message);
     }
@@ -380,6 +401,8 @@ const CRADataUpload: React.FC = () => {
   };
 
   const handleRemoveFile = (assetTypeId: string) => {
+    clearAssetData(assetTypeId);
+    
     setAssetTypes((prev) =>
       prev.map((asset) =>
         asset.id === assetTypeId
@@ -395,6 +418,11 @@ const CRADataUpload: React.FC = () => {
           : asset,
       ),
     );
+
+    const hasData = Object.keys(useCRADataStore.getState().assets).length > 1;
+    if (!hasData) {
+      updateStatus("dataUploaded", false);
+    }
   };
 
   const filteredAssets = assetTypes.filter((asset) => {
@@ -404,14 +432,8 @@ const CRADataUpload: React.FC = () => {
       asset.dataFields?.some((field) =>
         field.toLowerCase().includes(searchTerm.toLowerCase()),
       );
-    const matchesCategory =
-      filterCategory === "all" || asset.category === filterCategory;
-    return matchesSearch && matchesCategory;
+    return matchesSearch;
   });
-
-  const uploadProgress =
-    assetTypes.filter((a) => a.status === "validated").length /
-    assetTypes.length;
 
   const getStatusConfig = (status: string) => {
     switch (status) {
@@ -440,8 +462,8 @@ const CRADataUpload: React.FC = () => {
         return {
           icon: <Database size={16} />,
           label: "Uploaded",
-          color: "#8B5CF6",
-          bgColor: alpha("#8B5CF6", 0.08),
+          color: "#10B981",
+          bgColor: alpha("#10B981", 0.08),
         };
       default:
         return {
@@ -831,7 +853,7 @@ const CRADataUpload: React.FC = () => {
                               )}
                             </TableCell>
                             <TableCell sx={{ py: 2.5 }}>
-                              <Stack direction="row" spacing={1}>
+                              <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
                                 <Button
                                   variant="outlined"
                                   size="small"
@@ -860,7 +882,7 @@ const CRADataUpload: React.FC = () => {
                                   size="small"
                                   sx={{
                                     backgroundColor: asset.uploadedFile
-                                      ? "#8B5CF6"
+                                      ? "#10B981"
                                       : "#FDB913",
                                     color: "#0F172A",
                                     fontSize: "0.75rem",
@@ -899,6 +921,29 @@ const CRADataUpload: React.FC = () => {
                                     }}
                                   />
                                 </Button>
+                                {asset.uploadedFile && (
+                                  <Button
+                                    variant="contained"
+                                    size="small"
+                                    onClick={() => navigate(`/cra/data/${asset.id}`)}
+                                    sx={{
+                                      backgroundColor: "#FDB913",
+                                      color: "#0F172A",
+                                      fontSize: "0.75rem",
+                                      fontWeight: 700,
+                                      px: 1.5,
+                                      py: 0.5,
+                                      borderRadius: 1,
+                                      textTransform: "none",
+                                      minWidth: 90,
+                                      "&:hover": {
+                                        backgroundColor: "#F59E0B",
+                                      },
+                                    }}
+                                  >
+                                    View All
+                                  </Button>
+                                )}
                               </Stack>
                             </TableCell>
                             <TableCell sx={{ py: 2.5 }}>
@@ -933,8 +978,13 @@ const CRADataUpload: React.FC = () => {
                                     p: 3,
                                   }}
                                 >
-                                  <Grid container spacing={3}>
-                                    <Grid item xs={8}>
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      gap: 3,
+                                    }}
+                                  >
+                                    <Box sx={{ flex: "1 1 66%" }}>
                                       <Typography
                                         sx={{
                                           fontWeight: 600,
@@ -1038,8 +1088,8 @@ const CRADataUpload: React.FC = () => {
                                           ),
                                         )}
                                       </Stack>
-                                    </Grid>
-                                    <Grid item xs={4}>
+                                    </Box>
+                                    <Box sx={{ flex: "1 1 33%" }}>
                                       <Stack spacing={2}>
                                         {asset.uploadedFile && (
                                           <Button
@@ -1100,8 +1150,8 @@ const CRADataUpload: React.FC = () => {
                                           </Button>
                                         )}
                                       </Stack>
-                                    </Grid>
-                                  </Grid>
+                                    </Box>
+                                  </Box>
                                 </Paper>
                               </TableCell>
                             </TableRow>
@@ -1226,7 +1276,7 @@ const CRADataUpload: React.FC = () => {
                       sx={{
                         fontSize: "2.5rem",
                         fontWeight: 800,
-                        color: "#8B5CF6",
+                        color: "#FDB913",
                         mb: 0.5,
                         lineHeight: 1,
                       }}

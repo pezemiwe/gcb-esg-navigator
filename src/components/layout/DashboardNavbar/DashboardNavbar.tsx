@@ -12,6 +12,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 // import { usePermissions } from "@/hooks/usePermissions";
 // import { Permission } from "@/config/permissions.config";
@@ -22,6 +23,7 @@ export default function DashboardNavbar() {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const { user, logout } = useAuthStore();
+  const navigate = useNavigate();
   //   const { permissions } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [modulesAnchorEl, setModulesAnchorEl] = useState<null | HTMLElement>(
@@ -81,6 +83,15 @@ export default function DashboardNavbar() {
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          {/* Dashboard/Overview link */}
+          <Button
+            color="inherit"
+            onClick={() => navigate("/dashboard")}
+            sx={{ fontWeight: 600 }}
+          >
+            Overview
+          </Button>
+
           {/* Modules dropdown menu */}
           <Button
             color="inherit"
@@ -95,11 +106,52 @@ export default function DashboardNavbar() {
             onClose={handleModulesClose}
           >
             <MenuItem
-              onClick={handleModulesClose}
-              component="a"
-              href="/cra/data"
+              onClick={() => {
+                handleModulesClose();
+                navigate("/cra/data");
+              }}
             >
-              CRA Data Upload <Upload size={16} style={{ marginLeft: 8 }} />
+              CRA Data
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleModulesClose();
+                navigate("/cra/segmentation");
+              }}
+            >
+              Portfolio Segmentation
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleModulesClose();
+                navigate("/cra/pra");
+              }}
+            >
+              Physical Risk Mapping
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleModulesClose();
+                navigate("/cra/tra");
+              }}
+            >
+              Transition Risk Analytics
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleModulesClose();
+                navigate("/cra/collateral");
+              }}
+            >
+              Collateral Sensitivity
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleModulesClose();
+                navigate("/cra/reporting");
+              }}
+            >
+              CRA Reporting
             </MenuItem>
           </Menu>
           {/* Example nav links based on permissions */}
