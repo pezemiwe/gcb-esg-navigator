@@ -53,14 +53,13 @@ export default function DashboardNavbar() {
       position="static"
       elevation={0}
       sx={{
-        // Toned down gradient - more subtle
         background: isDark
-          ? `linear-gradient(90deg, #1E293B 0%, #0F172A 100%)`
-          : `linear-gradient(90deg, #E5A50F 0%, #D97706 100%)`, // Less bright yellow
+          ? `linear-gradient(90deg, ${alpha("#1E293B", 0.3)} 0%, ${alpha("#0F172A", 0.3)} 100%)`
+          : `linear-gradient(90deg, ${alpha("#FDB913", 0.08)} 0%, ${alpha("#E5A50F", 0.06)} 100%)`,
         color: isDark ? "#fff" : "#0F172A",
         borderBottom: isDark
-          ? `1px solid ${alpha("#FDB913", 0.1)}`
-          : `1px solid ${alpha("#D97706", 0.2)}`, // Subtle border
+          ? `1px solid ${alpha("#FDB913", 0.08)}`
+          : `1px solid ${alpha("#E5A50F", 0.12)}`,
         zIndex: 1201,
       }}
     >

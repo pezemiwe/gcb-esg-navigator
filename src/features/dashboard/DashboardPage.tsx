@@ -23,7 +23,6 @@ export default function DashboardPage() {
         >
           Hi, {user.name}
         </Typography>
-        {/* Add your dashboard widgets and content here */}
       </Box>
     </Box>
   );

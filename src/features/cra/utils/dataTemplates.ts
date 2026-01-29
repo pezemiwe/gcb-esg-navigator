@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export const TEMPLATE_DEFINITIONS = {
   loans_advances: {
     name: "Loans & Advances",
@@ -480,27 +479,745 @@ export const TEMPLATE_DEFINITIONS = {
       },
     ],
   },
+
+  other_asset_1: {
+    name: "Other Asset 1",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_2: {
+    name: "Other Asset 2",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_3: {
+    name: "Other Asset 3",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_4: {
+    name: "Other Asset 4",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_5: {
+    name: "Other Asset 5",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_6: {
+    name: "Other Asset 6",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_7: {
+    name: "Other Asset 7",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_8: {
+    name: "Other Asset 8",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_9: {
+    name: "Other Asset 9",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
+
+  other_asset_10: {
+    name: "Other Asset 10",
+    columns: [
+      {
+        field: "Asset ID",
+        type: "string",
+        required: true,
+        description: "Unique asset identifier",
+      },
+      {
+        field: "Asset Type",
+        type: "string",
+        required: true,
+        description: "Type of asset",
+      },
+      {
+        field: "Description",
+        type: "string",
+        required: true,
+        description: "Asset description",
+      },
+      {
+        field: "Amount",
+        type: "number",
+        required: true,
+        description: "Asset amount",
+      },
+      {
+        field: "Currency",
+        type: "string",
+        required: true,
+        description: "Currency code",
+      },
+      {
+        field: "Origination Date",
+        type: "date",
+        required: true,
+        description: "Origination date",
+      },
+      {
+        field: "Maturity Date",
+        type: "date",
+        required: false,
+        description: "Maturity date",
+      },
+      {
+        field: "Status",
+        type: "string",
+        required: true,
+        description: "Asset status",
+      },
+      {
+        field: "Counterparty Type",
+        type: "string",
+        required: true,
+        description: "Type of counterparty",
+      },
+      {
+        field: "Region",
+        type: "string",
+        required: true,
+        description: "Geographic region",
+      },
+      {
+        field: "Country",
+        type: "string",
+        required: true,
+        description: "Country",
+      },
+    ],
+  },
 };
 
-type ValidationRule = (value: any) => string | null;
-
-export const VALIDATION_RULES: Record<string, ValidationRule> = {
-  required: (value: any) => {
+export const VALIDATION_RULES = {
+  required: (value: unknown) => {
     if (value === null || value === undefined || value === "") {
       return "This field is required";
     }
     return null;
   },
 
-  number: (value: any) => {
+  number: (value: unknown) => {
     if (isNaN(Number(value))) {
       return "Must be a valid number";
     }
     return null;
   },
 
-  date: (value: any) => {
-    const date = new Date(value);
+  date: (value: unknown) => {
+    const date = new Date(value as string);
     if (isNaN(date.getTime())) {
       return "Must be a valid date";
     }
@@ -524,13 +1241,7 @@ export const VALIDATION_RULES: Record<string, ValidationRule> = {
   },
 };
 
-type AssetType = keyof typeof TEMPLATE_DEFINITIONS;
-
-interface SampleData {
-  [key: string]: Array<Record<string, any>>;
-}
-
-export const SAMPLE_DATA: SampleData = {
+export const SAMPLE_DATA = {
   loans_advances: [
     {
       "Facility ID": "LN-2024-001",
@@ -577,14 +1288,232 @@ export const SAMPLE_DATA: SampleData = {
       Country: "Ghana",
     },
   ],
+
+  bonds_fixed_income: [
+    {
+      "Asset ID": "BD-2024-001",
+      "Bond Name": "Ghana Government Bond 2027",
+      Issuer: "Government of Ghana",
+      Sector: "Government",
+      Subsector: "Sovereign",
+      "Face Value": 1000000,
+      Currency: "GHS",
+      "Coupon Rate (%)": 18.5,
+      "Issue Date": "2024-01-01",
+      "Maturity Date": "2027-01-01",
+      Status: "Active",
+      "Credit Rating": "B-",
+      "Market Value": 980000,
+      "Counterparty Type": "Sovereign",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  derivatives: [
+    {
+      "Asset ID": "DV-2024-001",
+      "Derivative Type": "Interest Rate Swap",
+      "Underlying Asset": "Ghana 91-Day T-Bill",
+      "Notional Amount": 500000,
+      Currency: "GHS",
+      "Counterparty Name": "ABC Bank",
+      "Counterparty Type": "Financial Institution",
+      "Trade Date": "2024-01-15",
+      "Maturity/Expiry Date": "2025-01-15",
+      Status: "Active",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  guarantees_obs: [
+    {
+      "Asset ID": "GT-2024-001",
+      "Guarantee Type": "Performance Guarantee",
+      "Beneficiary Name": "XYZ Construction Ltd",
+      Amount: 200000,
+      Currency: "GHS",
+      "Issue Date": "2024-01-10",
+      "Expiry Date": "2025-01-10",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_1: [
+    {
+      "Asset ID": "OA1-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_2: [
+    {
+      "Asset ID": "OA2-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_3: [
+    {
+      "Asset ID": "OA3-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_4: [
+    {
+      "Asset ID": "OA4-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_5: [
+    {
+      "Asset ID": "OA5-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_6: [
+    {
+      "Asset ID": "OA6-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_7: [
+    {
+      "Asset ID": "OA7-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_8: [
+    {
+      "Asset ID": "OA8-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_9: [
+    {
+      "Asset ID": "OA9-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
+
+  other_asset_10: [
+    {
+      "Asset ID": "OA10-2024-001",
+      "Asset Type": "Other Financial Instrument",
+      Description: "Miscellaneous financial asset",
+      Amount: 150000,
+      Currency: "GHS",
+      "Origination Date": "2024-01-15",
+      "Maturity Date": "2025-01-15",
+      Status: "Active",
+      "Counterparty Type": "Corporate",
+      Region: "Greater Accra",
+      Country: "Ghana",
+    },
+  ],
 };
 
-export const generateCSVTemplate = (assetType: AssetType): string => {
+export const generateCSVTemplate = (
+  assetType: keyof typeof TEMPLATE_DEFINITIONS,
+): string => {
   const template = TEMPLATE_DEFINITIONS[assetType];
   if (!template) return "";
 
   const headers = template.columns.map((col) => col.field).join(",");
-  const sampleRow = SAMPLE_DATA[assetType]?.[0];
+  const sampleRow = (SAMPLE_DATA as Record<string, Record<string, unknown>[]>)[
+    assetType
+  ]?.[0];
 
   if (sampleRow) {
     const values = template.columns
@@ -601,23 +1530,12 @@ export const generateCSVTemplate = (assetType: AssetType): string => {
   return headers;
 };
 
-interface ValidationError {
-  row: number;
-  field: string;
-  error: string;
-}
-
-interface ValidationResult {
-  isValid: boolean;
-  errors: ValidationError[];
-}
-
 export const validateUploadedData = (
-  data: any[],
-  assetType: AssetType,
-): ValidationResult => {
+  data: Record<string, unknown>[],
+  assetType: keyof typeof TEMPLATE_DEFINITIONS,
+) => {
   const template = TEMPLATE_DEFINITIONS[assetType];
-  const errors: ValidationError[] = [];
+  const errors: Array<{ row: number; field: string; error: string }> = [];
 
   data.forEach((row, rowIndex) => {
     template.columns.forEach((column) => {

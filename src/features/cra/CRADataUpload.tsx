@@ -159,23 +159,6 @@ const CRADataUpload: React.FC = () => {
       ],
     },
     {
-      id: "real_estate",
-      name: "Real Estate Holdings",
-      category: "Physical Assets",
-      description:
-        "Commercial and residential property investments, REIT holdings, and mortgage portfolios",
-      templateFile: "real_estate_template.xlsx",
-      status: "not_uploaded",
-      dataFields: [
-        "Property ID",
-        "Location",
-        "Property Type",
-        "Value",
-        "Energy Rating",
-        "Flood Zone",
-      ],
-    },
-    {
       id: "other_asset_1",
       name: "Other Asset 1",
       category: "Additional Assets",
@@ -518,51 +501,6 @@ const CRADataUpload: React.FC = () => {
                   </Typography>
                 </Box>
               </Stack>
-
-              <Paper
-                elevation={0}
-                sx={{
-                  mt: 3,
-                  p: 3,
-                  backgroundColor: isDark ? "#0F1623" : "#FFFFFF",
-                  border: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
-                  borderRadius: 2,
-                }}
-              >
-                <Stack direction="row" justifyContent="space-between" mb={2}>
-                  <Typography
-                    sx={{
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: isDark ? "#FFFFFF" : "#0F172A",
-                    }}
-                  >
-                    Portfolio Upload Progress
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: "#FDB913",
-                    }}
-                  >
-                    {Math.round(uploadProgress * 100)}% Complete
-                  </Typography>
-                </Stack>
-                <LinearProgress
-                  variant="determinate"
-                  value={uploadProgress * 100}
-                  sx={{
-                    height: 8,
-                    borderRadius: 4,
-                    backgroundColor: isDark ? alpha("#334155", 0.3) : "#E2E8F0",
-                    "& .MuiLinearProgress-bar": {
-                      backgroundColor: "#FDB913",
-                      borderRadius: 4,
-                    },
-                  }}
-                />
-              </Paper>
             </Box>
 
             <Paper
@@ -613,7 +551,7 @@ const CRADataUpload: React.FC = () => {
                     },
                   }}
                 />
-                <FormControl sx={{ minWidth: 180 }}>
+                {/* <FormControl sx={{ minWidth: 180 }}>
                   <InputLabel>Category</InputLabel>
                   <Select
                     value={filterCategory}
@@ -633,7 +571,7 @@ const CRADataUpload: React.FC = () => {
                       </MenuItem>
                     ))}
                   </Select>
-                </FormControl>
+                </FormControl> */}
               </Stack>
 
               <TableContainer>
@@ -1176,7 +1114,7 @@ const CRADataUpload: React.FC = () => {
               </TableContainer>
             </Paper>
 
-            <Paper
+            {/* <Paper
               elevation={0}
               sx={{
                 backgroundColor: isDark ? "#0F1623" : "#FFFFFF",
@@ -1347,7 +1285,7 @@ const CRADataUpload: React.FC = () => {
                   </Paper>
                 </Grid>
               </Grid>
-            </Paper>
+            </Paper> */}
           </Stack>
         </Box>
       </Box>
