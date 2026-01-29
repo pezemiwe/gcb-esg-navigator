@@ -1,33 +1,19 @@
-import {
-  Box,
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  useTheme,
-  alpha,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material";
 import DashboardNavbar from "@/components/layout/DashboardNavbar/DashboardNavbar";
 import { useAuthStore } from "@/store/authStore";
-import { Permission } from "@/config/permissions.config";
-import { PermissionGuard } from "@/guards/PermissionGuard";
 
 export default function DashboardPage() {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const { user } = useAuthStore();
-
   if (!user) return null;
-
   return (
     <Box
-      sx={{
-        minHeight: "100vh",
-        background: isDark ? "#0F172A" : "#F8FAFC",
-      }}
+      sx={{ minHeight: "100vh", background: isDark ? "#0F172A" : "#F8FAFC" }}
     >
       <DashboardNavbar />
-
       <Box sx={{ maxWidth: 1280, mx: "auto", px: 3, py: 5 }}>
         <Typography
           variant="h4"
@@ -37,6 +23,7 @@ export default function DashboardPage() {
         >
           Hi, {user.name}
         </Typography>
+        {/* Add your dashboard widgets and content here */}
       </Box>
     </Box>
   );

@@ -13,15 +13,16 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useAuthStore } from "@/store/authStore";
-import { usePermissions } from "@/hooks/usePermissions";
-import { Permission } from "@/config/permissions.config";
+// import { usePermissions } from "@/hooks/usePermissions";
+// import { Permission } from "@/config/permissions.config";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Upload } from "lucide-react";
 
 export default function DashboardNavbar() {
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const { user, logout } = useAuthStore();
-  const { permissions } = usePermissions();
+  //   const { permissions } = usePermissions();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [modulesAnchorEl, setModulesAnchorEl] = useState<null | HTMLElement>(
     null,
@@ -52,13 +53,14 @@ export default function DashboardNavbar() {
       position="static"
       elevation={0}
       sx={{
+        // Toned down gradient - more subtle
         background: isDark
           ? `linear-gradient(90deg, #1E293B 0%, #0F172A 100%)`
-          : `linear-gradient(90deg, #FDB913 0%, #F59E0B 100%)`,
+          : `linear-gradient(90deg, #E5A50F 0%, #D97706 100%)`, // Less bright yellow
         color: isDark ? "#fff" : "#0F172A",
         borderBottom: isDark
           ? `1px solid ${alpha("#FDB913", 0.1)}`
-          : `1px solid #F1F5F9`,
+          : `1px solid ${alpha("#D97706", 0.2)}`, // Subtle border
         zIndex: 1201,
       }}
     >
@@ -93,20 +95,12 @@ export default function DashboardNavbar() {
             open={Boolean(modulesAnchorEl)}
             onClose={handleModulesClose}
           >
-            <MenuItem onClick={handleModulesClose} component="a" href="#">
-              Credit Risk Rating
-            </MenuItem>
-            <MenuItem onClick={handleModulesClose} component="a" href="#">
-              Portfolio Analysis
-            </MenuItem>
-            <MenuItem onClick={handleModulesClose} component="a" href="#">
-              IFRS 9 ECL
-            </MenuItem>
-            <MenuItem onClick={handleModulesClose} component="a" href="#">
-              EIR
-            </MenuItem>
-            <MenuItem onClick={handleModulesClose} component="a" href="#">
-              Collateral Management
+            <MenuItem
+              onClick={handleModulesClose}
+              component="a"
+              href="/cra/data"
+            >
+              CRA Data Upload <Upload size={16} style={{ marginLeft: 8 }} />
             </MenuItem>
           </Menu>
           {/* Example nav links based on permissions */}
@@ -125,7 +119,9 @@ export default function DashboardNavbar() {
               src={user.avatar}
               alt={user.name}
               sx={{
-                bgcolor: isDark ? alpha("#FDB913", 0.2) : "#FDB913",
+                bgcolor: isDark
+                  ? alpha("#FDB913", 0.2)
+                  : alpha("#D97706", 0.15),
                 color: isDark ? "#fff" : "#0F172A",
               }}
             >

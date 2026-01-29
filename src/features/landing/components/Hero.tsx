@@ -363,7 +363,7 @@ export default function BankingLandingPage() {
                     >
                       <Shield sx={{ fontSize: 18, color: "#64748B" }} />
                     </Box>
-                    <Box sx={{ flex: 1 }}>
+                    <Box sx={{ flex: 1 }} onClick={() => navigate("/login")}>
                       <Typography
                         sx={{
                           fontSize: "0.875rem",

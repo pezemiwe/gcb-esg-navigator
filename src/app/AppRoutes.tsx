@@ -8,6 +8,7 @@ import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 const LandingPage = lazy(() => import("@/features/landing/LandingPage"));
 const LoginPage = lazy(() => import("@/features/auth/LoginPage"));
 const DashboardPage = lazy(() => import("@/features/dashboard/DashboardPage"));
+const CRADataUpload = lazy(() => import("@/features/cra/CRADataUpload"));
 
 function LoadingFallback() {
   return (
@@ -65,7 +66,9 @@ export default function AppRoutes() {
                   UserRole.DATA_ENTRY,
                 ]}
               >
-                <DashboardPage />
+                <ErrorBoundary>
+                  <CRADataUpload />
+                </ErrorBoundary>
               </RoleGuard>
             </AuthGuard>
           }
