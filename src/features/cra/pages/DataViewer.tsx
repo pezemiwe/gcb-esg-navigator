@@ -73,7 +73,7 @@ const DataViewer: React.FC = () => {
         .split("T")[0],
       riskLevel: ["Low", "Medium", "High"][i % 3],
     }));
-  }, [assetTypeId]);
+  }, [assetTypeId, assetData]);
 
   const assetTypeNames: Record<string, string> = {
     loans_advances: "Loans & Advances",

@@ -338,12 +338,26 @@ const CRADataUpload: React.FC = () => {
         id: `${assetTypeId.toUpperCase()}-${String(i + 1).padStart(5, "0")}`,
         facilityId: `FAC-${String(i + 1).padStart(6, "0")}`,
         borrowerName: `Entity ${i + 1}`,
-        sector: ["Financial Services", "Energy", "Technology", "Manufacturing", "Real Estate", "Healthcare"][i % 6],
-        region: ["Greater Accra", "Ashanti", "Western", "Eastern", "Northern", "Central"][i % 6],
+        sector: [
+          "Financial Services",
+          "Energy",
+          "Technology",
+          "Manufacturing",
+          "Real Estate",
+          "Healthcare",
+        ][i % 6],
+        region: [
+          "Greater Accra",
+          "Ashanti",
+          "Western",
+          "Eastern",
+          "Northern",
+          "Central",
+        ][i % 6],
         outstandingBalance: Math.floor(Math.random() * 10000000) + 500000,
         currency: "GHS",
-        latitude: 5.6 + (Math.random() * 4),
-        longitude: -2.5 + (Math.random() * 4),
+        latitude: 5.6 + Math.random() * 4,
+        longitude: -2.5 + Math.random() * 4,
         status: ["Active", "Active", "Active", "Restructured"][i % 4],
       }));
 
@@ -387,6 +401,7 @@ const CRADataUpload: React.FC = () => {
 
   const handleDownloadTemplate = (assetTypeId: string) => {
     try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       downloadExcelTemplate(assetTypeId as any);
     } catch (error) {
       alert("Failed to download template: " + (error as Error).message);
@@ -402,7 +417,7 @@ const CRADataUpload: React.FC = () => {
 
   const handleRemoveFile = (assetTypeId: string) => {
     clearAssetData(assetTypeId);
-    
+
     setAssetTypes((prev) =>
       prev.map((asset) =>
         asset.id === assetTypeId
@@ -853,7 +868,12 @@ const CRADataUpload: React.FC = () => {
                               )}
                             </TableCell>
                             <TableCell sx={{ py: 2.5 }}>
-                              <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+                              <Stack
+                                direction="row"
+                                spacing={1}
+                                flexWrap="wrap"
+                                gap={1}
+                              >
                                 <Button
                                   variant="outlined"
                                   size="small"
@@ -925,7 +945,9 @@ const CRADataUpload: React.FC = () => {
                                   <Button
                                     variant="contained"
                                     size="small"
-                                    onClick={() => navigate(`/cra/data/${asset.id}`)}
+                                    onClick={() =>
+                                      navigate(`/cra/data/${asset.id}`)
+                                    }
                                     sx={{
                                       backgroundColor: "#FDB913",
                                       color: "#0F172A",

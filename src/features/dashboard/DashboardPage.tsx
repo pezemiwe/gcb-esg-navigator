@@ -1,23 +1,237 @@
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useTheme, Paper, Stack, alpha } from "@mui/material";
+import {
+  Paper,
+  Stack,
+  alpha,
+  Card,
+  CardContent,
+  Button,
+  Chip,
+  Divider,
+  Tooltip,
+} from "@mui/material";
 import DashboardNavbar from "@/components/layout/DashboardNavbar/DashboardNavbar";
 import { useAuthStore } from "@/store/authStore";
 import { useCRADataStore } from "@/store/craStore";
 import {
+  TrendingUp as TrendingUpIcon,
+  TrendingDown as TrendingDownIcon,
+  ArrowRight,
+  Download,
+  ChevronRight,
+  BarChart3,
   Database,
-  TrendingUp,
-  FileSpreadsheet,
-  CheckCircle2,
+  Shield,
+  Globe,
+  Building,
+  FileText,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+// Professional Corporate Color Scheme
+const CORPORATE_COLORS = {
+  primary: "#0F172A", // Professional navy/dark blue
+  primaryLight: "#334155",
+  secondary: "#FDB913", // Gold accent
+  success: "#059669", // Deep green
+  warning: "#D97706", // Amber
+  error: "#DC2626", // Deep red
+  info: "#2563EB", // Corporate blue
+  neutral: "#64748B",
+  lightBg: "#F8FAFC",
+  darkBg: "#0F172A",
+  cardLight: "#FFFFFF",
+  cardDark: "#1E293B",
+};
+
+interface Module {
+  id: string;
+  title: string;
+  description: string;
+  route: string;
+  icon: React.ElementType;
+  tag?: string;
+}
+
+const modules: Module[] = [
+  {
+    id: "data-upload",
+    title: "Data Management",
+    description: "Centralized data ingestion and validation for portfolio analysis",
+    route: "/cra/data",
+    icon: Database,
+    tag: "Core",
+  },
+  {
+    id: "segmentation",
+    title: "Portfolio Segmentation",
+    description: "Advanced sector and geographic risk exposure analysis",
+    route: "/cra/segmentation",
+    icon: BarChart3,
+    tag: "Analytics",
+  },
+  {
+    id: "physical-risk",
+    title: "Physical Risk Assessment",
+    description: "Comprehensive climate hazard modeling and impact analysis",
+    route: "/cra/physical-risk",
+    icon: Globe,
+    tag: "Risk",
+  },
+  {
+    id: "transition-risk",
+    title: "Transition Risk Assessment",
+    description: "Policy, technology, and market transition scenario analysis",
+    route: "/cra/transition-risk",
+    icon: Shield,
+    tag: "Strategy",
+  },
+  {
+    id: "collateral",
+    title: "Collateral Sensitivity",
+    description: "Climate impact assessment on asset valuations and collateral",
+    route: "/cra/collateral",
+    icon: Building,
+    tag: "Valuation",
+  },
+  {
+    id: "reporting",
+    title: "CRA Reporting",
+    description: "Regulatory compliance and stakeholder reporting suite",
+    route: "/cra/reporting",
+    icon: FileText,
+    tag: "Compliance",
+  },
+];
+
+// Mock sector data
+const sectorExposure = [
+  { sector: "Agriculture & Forestry", exposure: 450, risk: "High", trend: "+12%" },
+  { sector: "Energy & Utilities", exposure: 320, risk: "Medium", trend: "+8%" },
+  { sector: "Transport & Infrastructure", exposure: 280, risk: "High", trend: "+15%" },
+  { sector: "Real Estate & Construction", exposure: 210, risk: "Medium", trend: "+5%" },
+  { sector: "Manufacturing", exposure: 180, risk: "Low", trend: "+3%" },
+  { sector: "Financial Services", exposure: 150, risk: "Medium", trend: "+7%" },
+];
+
+interface MetricCardProps {
+  title: string;
+  value: string;
+  change: string;
+  isPositive: boolean;
+  suffix?: string;
+  icon?: React.ReactNode;
+  tooltip?: string;
+}
+
+const MetricCard: React.FC<MetricCardProps> = ({ 
+  title, 
+  value, 
+  change, 
+  isPositive, 
+  suffix,
+  tooltip 
+}) => (
+  <Tooltip title={tooltip || ""} arrow placement="top">
+    <Card
+      elevation={0}
+      sx={{
+        backgroundColor: 'background.paper',
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: 'divider',
+        height: '100%',
+        transition: 'all 0.2s ease',
+        '&:hover': {
+          borderColor: 'primary.main',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+        },
+      }}
+    >
+      <CardContent sx={{ p: 3 }}>
+        <Stack spacing={2}>
+          <Typography
+            variant="subtitle2"
+            sx={{
+              color: 'text.secondary',
+              fontWeight: 500,
+              letterSpacing: 0.5,
+              textTransform: 'uppercase',
+              fontSize: '0.75rem',
+            }}
+          >
+            {title}
+          </Typography>
+          <Stack direction="row" alignItems="baseline" spacing={1}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: 600,
+                color: 'text.primary',
+                lineHeight: 1,
+              }}
+            >
+              {value}
+            </Typography>
+            {suffix && (
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  color: 'text.secondary',
+                  fontWeight: 500,
+                }}
+              >
+                {suffix}
+              </Typography>
+            )}
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                color: isPositive ? CORPORATE_COLORS.success : CORPORATE_COLORS.error,
+              }}
+            >
+              {isPositive ? (
+                <TrendingUpIcon size={16} />
+              ) : (
+                <TrendingDownIcon size={16} />
+              )}
+              <Typography
+                variant="caption"
+                sx={{
+                  fontWeight: 600,
+                  ml: 0.5,
+                  color: isPositive ? CORPORATE_COLORS.success : CORPORATE_COLORS.error,
+                }}
+              >
+                {change}
+              </Typography>
+            </Box>
+            <Typography
+              variant="caption"
+              sx={{
+                color: 'text.secondary',
+              }}
+            >
+              vs. last quarter
+            </Typography>
+          </Stack>
+        </Stack>
+      </CardContent>
+    </Card>
+  </Tooltip>
+);
+
 export default function DashboardPage() {
-  const theme = useTheme();
-  const isDark = theme.palette.mode === "dark";
   const { user } = useAuthStore();
   const { assets } = useCRADataStore();
   const navigate = useNavigate();
+
+  const [selectedTimeframe, setSelectedTimeframe] = useState('quarterly');
 
   if (!user) return null;
 
@@ -31,416 +245,504 @@ export default function DashboardPage() {
       sum + asset.data.reduce((s, a) => s + (a.outstandingBalance || 0), 0),
     0,
   );
-  const lastUpload = Object.values(assets).reduce(
-    (latest, asset) => {
-      if (!asset.uploadedAt) return latest;
-      return !latest || new Date(asset.uploadedAt) > new Date(latest)
-        ? asset.uploadedAt
-        : latest;
-    },
-    null as string | null,
-  );
+
+  const formatCurrency = (value: number) => {
+    if (value >= 1000000000) {
+      return `₵${(value / 1000000000).toFixed(1)}`;
+    }
+    if (value >= 1000000) {
+      return `₵${(value / 1000000).toFixed(1)}`;
+    }
+    return `₵${value.toLocaleString()}`;
+  };
+
+  const getCurrencySuffix = (value: number) => {
+    if (value >= 1000000000) return 'B';
+    if (value >= 1000000) return 'M';
+    return '';
+  };
 
   return (
     <Box
-      sx={{ minHeight: "100vh", background: isDark ? "#0F172A" : "#F8FAFC" }}
+      sx={{
+        minHeight: '100vh',
+        backgroundColor: 'background.default',
+        pt: '70px', // Fixed navbar height
+      }}
     >
       <DashboardNavbar />
-      <Box sx={{ maxWidth: 1280, mx: "auto", px: 3, py: 5 }}>
-        <Typography
-          variant="h4"
-          fontWeight={700}
-          mb={4}
-          sx={{ color: isDark ? "#fff" : "#0F172A" }}
-        >
-          Hi, {user.name}
-        </Typography>
 
-        {uploadedAssetTypes > 0 ? (
-          <>
-            <Typography
-              variant="h6"
-              fontWeight={600}
-              mb={3}
-              sx={{ color: isDark ? alpha("#FFFFFF", 0.8) : "#475569" }}
-            >
-              CRA Data Overview
-            </Typography>
-            <Stack direction="row" spacing={3} mb={4} flexWrap="wrap">
-              <Paper
-                elevation={0}
-                sx={{
-                  flex: "1 1 250px",
-                  p: 3,
-                  backgroundColor: isDark ? "#1E293B" : "#FFFFFF",
-                  border: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
-                  borderRadius: 2.5,
-                  cursor: "pointer",
-                  transition: "all 0.2s",
-                  "&:hover": {
-                    borderColor: "#FDB913",
-                    transform: "translateY(-2px)",
-                  },
-                }}
-                onClick={() => navigate("/cra/data")}
-              >
-                <Stack direction="row" alignItems="center" spacing={2} mb={2}>
-                  <Box
-                    sx={{
-                      p: 1.5,
-                      backgroundColor: alpha("#FDB913", 0.12),
-                      borderRadius: 2,
-                      display: "flex",
-                    }}
-                  >
-                    <Database size={24} color="#FDB913" />
-                  </Box>
-                  <Typography
-                    sx={{
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: isDark ? alpha("#FFFFFF", 0.7) : "#64748B",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    Asset Types
-                  </Typography>
-                </Stack>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontWeight: 800,
-                    color: "#FDB913",
-                    mb: 0.5,
-                  }}
-                >
-                  {uploadedAssetTypes}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "0.8125rem",
-                    color: isDark ? alpha("#FFFFFF", 0.6) : "#64748B",
-                  }}
-                >
-                  Uploaded
-                </Typography>
-              </Paper>
-
-              <Paper
-                elevation={0}
-                sx={{
-                  flex: "1 1 250px",
-                  p: 3,
-                  backgroundColor: isDark ? "#1E293B" : "#FFFFFF",
-                  border: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
-                  borderRadius: 2.5,
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={2} mb={2}>
-                  <Box
-                    sx={{
-                      p: 1.5,
-                      backgroundColor: alpha("#10B981", 0.12),
-                      borderRadius: 2,
-                      display: "flex",
-                    }}
-                  >
-                    <FileSpreadsheet size={24} color="#10B981" />
-                  </Box>
-                  <Typography
-                    sx={{
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: isDark ? alpha("#FFFFFF", 0.7) : "#64748B",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    Total Records
-                  </Typography>
-                </Stack>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontWeight: 800,
-                    color: "#10B981",
-                    mb: 0.5,
-                  }}
-                >
-                  {totalRecords.toLocaleString()}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "0.8125rem",
-                    color: isDark ? alpha("#FFFFFF", 0.6) : "#64748B",
-                  }}
-                >
-                  Data Points
-                </Typography>
-              </Paper>
-
-              <Paper
-                elevation={0}
-                sx={{
-                  flex: "1 1 250px",
-                  p: 3,
-                  backgroundColor: isDark ? "#1E293B" : "#FFFFFF",
-                  border: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
-                  borderRadius: 2.5,
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={2} mb={2}>
-                  <Box
-                    sx={{
-                      p: 1.5,
-                      backgroundColor: alpha("#3B82F6", 0.12),
-                      borderRadius: 2,
-                      display: "flex",
-                    }}
-                  >
-                    <TrendingUp size={24} color="#3B82F6" />
-                  </Box>
-                  <Typography
-                    sx={{
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: isDark ? alpha("#FFFFFF", 0.7) : "#64748B",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    Total Exposure
-                  </Typography>
-                </Stack>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontWeight: 800,
-                    color: "#3B82F6",
-                    mb: 0.5,
-                    fontSize: "2rem",
-                  }}
-                >
-                  ₵{(totalExposure / 1000000).toFixed(1)}M
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "0.8125rem",
-                    color: isDark ? alpha("#FFFFFF", 0.6) : "#64748B",
-                  }}
-                >
-                  Portfolio Value
-                </Typography>
-              </Paper>
-
-              <Paper
-                elevation={0}
-                sx={{
-                  flex: "1 1 250px",
-                  p: 3,
-                  backgroundColor: isDark ? "#1E293B" : "#FFFFFF",
-                  border: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
-                  borderRadius: 2.5,
-                }}
-              >
-                <Stack direction="row" alignItems="center" spacing={2} mb={2}>
-                  <Box
-                    sx={{
-                      p: 1.5,
-                      backgroundColor: alpha("#10B981", 0.12),
-                      borderRadius: 2,
-                      display: "flex",
-                    }}
-                  >
-                    <CheckCircle2 size={24} color="#10B981" />
-                  </Box>
-                  <Typography
-                    sx={{
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: isDark ? alpha("#FFFFFF", 0.7) : "#64748B",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.05em",
-                    }}
-                  >
-                    Last Upload
-                  </Typography>
-                </Stack>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: 700,
-                    color: isDark ? "#FFFFFF" : "#0F172A",
-                    mb: 0.5,
-                  }}
-                >
-                  {lastUpload
-                    ? new Date(lastUpload).toLocaleDateString()
-                    : "N/A"}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "0.8125rem",
-                    color: isDark ? alpha("#FFFFFF", 0.6) : "#64748B",
-                  }}
-                >
-                  {lastUpload
-                    ? new Date(lastUpload).toLocaleTimeString()
-                    : "No uploads yet"}
-                </Typography>
-              </Paper>
-            </Stack>
-
-            <Paper
-              elevation={0}
-              sx={{
-                p: 3,
-                backgroundColor: isDark ? "#1E293B" : "#FFFFFF",
-                border: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
-                borderRadius: 2.5,
-              }}
-            >
+      <Box sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2, md: 4 }, py: 4 }}>
+        {/* Header Section */}
+        <Box sx={{ mb: 6 }}>
+          <Stack spacing={3}>
+            <Box>
               <Typography
-                variant="h6"
-                fontWeight={600}
-                mb={2}
-                sx={{ color: isDark ? "#FFFFFF" : "#0F172A" }}
+                variant="h5"
+                sx={{
+                  fontWeight: 500,
+                  color: 'text.primary',
+                  mb: 1,
+                }}
               >
-                Uploaded Asset Types
+                ESG & Climate Risk Analytics
               </Typography>
-              <Stack spacing={2}>
-                {Object.entries(assets).map(([key, asset]) => (
-                  <Box
-                    key={key}
-                    sx={{
-                      p: 2,
-                      backgroundColor: isDark ? "#0F172A" : "#F8FAFC",
-                      borderRadius: 1.5,
-                      cursor: "pointer",
-                      transition: "all 0.2s",
-                      "&:hover": {
-                        backgroundColor: isDark
-                          ? alpha("#FDB913", 0.08)
-                          : alpha("#FDB913", 0.05),
-                      },
-                    }}
-                    onClick={() => navigate(`/cra/data/${key}`)}
-                  >
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box>
-                        <Typography
-                          sx={{
-                            fontWeight: 600,
-                            color: isDark ? "#FFFFFF" : "#0F172A",
-                            mb: 0.5,
-                          }}
-                        >
-                          {asset.type
-                            .split("_")
-                            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                            .join(" ")}
-                        </Typography>
-                        <Typography
-                          sx={{
-                            fontSize: "0.8125rem",
-                            color: isDark ? alpha("#FFFFFF", 0.6) : "#64748B",
-                          }}
-                        >
-                          {asset.fileName} · {asset.rowCount.toLocaleString()}{" "}
-                          rows
-                        </Typography>
-                      </Box>
-                      <Stack direction="row" spacing={2} alignItems="center">
-                        <Typography
-                          sx={{
-                            fontSize: "0.875rem",
-                            color: "#10B981",
-                            fontWeight: 600,
-                          }}
-                        >
-                          {asset.validationStatus === "validated"
-                            ? "✓ Validated"
-                            : "Pending"}
-                        </Typography>
-                        <Typography
-                          sx={{
-                            fontSize: "0.8125rem",
-                            color: isDark ? alpha("#FFFFFF", 0.5) : "#94A3B8",
-                          }}
-                        >
-                          {new Date(asset.uploadedAt!).toLocaleDateString()}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  </Box>
-                ))}
+              <Typography
+                variant="h2"
+                sx={{
+                  fontWeight: 700,
+                  color: 'text.primary',
+                  fontSize: { xs: '2rem', md: '2.5rem' },
+                  lineHeight: 1.2,
+                }}
+              >
+                Portfolio Risk Dashboard
+              </Typography>
+            </Box>
+
+            <Stack
+              direction={{ xs: 'column', md: 'row' }}
+              alignItems={{ xs: 'flex-start', md: 'center' }}
+              justifyContent="space-between"
+              spacing={3}
+            >
+              <Box>
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    color: 'text.secondary',
+                    fontWeight: 500,
+                  }}
+                >
+                  Welcome, {user.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                    maxWidth: 600,
+                  }}
+                >
+                  Comprehensive overview of climate-related financial risks across your investment portfolio
+                </Typography>
+              </Box>
+
+              <Stack direction="row" spacing={2}>
+                <Button
+                  variant={selectedTimeframe === 'monthly' ? 'contained' : 'outlined'}
+                  size="medium"
+                  onClick={() => setSelectedTimeframe('monthly')}
+                  sx={{
+                    minWidth: 100,
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    borderRadius: 1,
+                  }}
+                >
+                  Monthly
+                </Button>
+                <Button
+                  variant={selectedTimeframe === 'quarterly' ? 'contained' : 'outlined'}
+                  size="medium"
+                  onClick={() => setSelectedTimeframe('quarterly')}
+                  sx={{
+                    minWidth: 100,
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    borderRadius: 1,
+                  }}
+                >
+                  Quarterly
+                </Button>
+                <Button
+                  variant="contained"
+                  startIcon={<Download size={18} />}
+                  size="medium"
+                  sx={{
+                    backgroundColor: CORPORATE_COLORS.primary,
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    borderRadius: 1,
+                    px: 3,
+                    '&:hover': {
+                      backgroundColor: CORPORATE_COLORS.primaryLight,
+                    },
+                  }}
+                >
+                  Export Report
+                </Button>
               </Stack>
-            </Paper>
-          </>
-        ) : (
-          <Paper
-            elevation={0}
+            </Stack>
+          </Stack>
+        </Box>
+
+        {/* Key Metrics Grid */}
+        <Box
+          sx={{
+            mb: 6,
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(4, 1fr)',
+            },
+            gap: 3,
+          }}
+        >
+          <MetricCard
+            title="Total Portfolio Exposure"
+            value={formatCurrency(totalExposure)}
+            suffix={getCurrencySuffix(totalExposure)}
+            change="+11.1%"
+            isPositive={true}
+            tooltip="Total outstanding balance across all assessed assets"
+          />
+          <MetricCard
+            title="Portfolio Records"
+            value={totalRecords.toLocaleString()}
+            change="+8.5%"
+            isPositive={true}
+            tooltip="Total number of asset records in the system"
+          />
+          <MetricCard
+            title="Asset Classes"
+            value={uploadedAssetTypes.toString()}
+            change="+3.0%"
+            isPositive={true}
+            tooltip="Number of distinct asset types analyzed"
+          />
+          <MetricCard
+            title="Average Risk Score"
+            value="7.2"
+            change="-2.3%"
+            isPositive={false}
+            suffix="/10"
+            tooltip="Weighted average climate risk score across portfolio"
+          />
+        </Box>
+
+        {/* Module Cards Section */}
+        <Box sx={{ mb: 6 }}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{ mb: 4 }}
+          >
+            <Box>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontWeight: 600,
+                  color: 'text.primary',
+                  mb: 1,
+                }}
+              >
+                Risk Assessment Modules
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                }}
+              >
+                Specialized tools for comprehensive climate risk analysis
+              </Typography>
+            </Box>
+            <Button
+              variant="text"
+              endIcon={<ChevronRight size={18} />}
+              sx={{
+                textTransform: 'none',
+                fontWeight: 500,
+                color: 'primary.main',
+              }}
+              onClick={() => navigate('/modules')}
+            >
+              View all modules
+            </Button>
+          </Stack>
+
+          <Box
             sx={{
-              p: 6,
-              textAlign: "center",
-              backgroundColor: isDark ? "#1E293B" : "#FFFFFF",
-              border: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
-              borderRadius: 2.5,
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                lg: 'repeat(3, 1fr)',
+              },
+              gap: 3,
             }}
           >
-            <Database
-              size={48}
-              color="#64748B"
-              style={{ margin: "0 auto 16px" }}
-            />
-            <Typography
-              variant="h6"
-              fontWeight={600}
-              mb={1}
-              sx={{ color: isDark ? "#FFFFFF" : "#0F172A" }}
-            >
-              No Data Uploaded Yet
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "0.9375rem",
-                color: isDark ? alpha("#FFFFFF", 0.6) : "#64748B",
-                mb: 3,
-              }}
-            >
-              Upload your financial asset data to get started with climate risk
-              assessment
-            </Typography>
-            <Box
-              onClick={() => navigate("/cra/data")}
-              sx={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 1,
-                px: 3,
-                py: 1.5,
-                backgroundColor: "#FDB913",
-                color: "#0F172A",
-                borderRadius: 1.5,
-                fontWeight: 700,
-                cursor: "pointer",
-                transition: "all 0.2s",
-                "&:hover": {
-                  backgroundColor: "#F59E0B",
-                  transform: "translateY(-2px)",
-                },
-              }}
-            >
-              <Database size={18} />
-              Upload Data
+            {modules.map((module) => {
+              const IconComponent = module.icon;
+              return (
+                <Box key={module.id}>
+                  <Card
+                    elevation={0}
+                    sx={{
+                      height: '100%',
+                      backgroundColor: 'background.paper',
+                      border: '1px solid',
+                      borderColor: 'divider',
+                      borderRadius: 2,
+                      transition: 'all 0.2s ease',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        borderColor: 'primary.main',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+                      },
+                    }}
+                    onClick={() => navigate(module.route)}
+                  >
+                    <CardContent sx={{ p: 3, height: '100%' }}>
+                      <Stack spacing={3} sx={{ height: '100%' }}>
+                        <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: 48,
+                              height: 48,
+                              borderRadius: 2,
+                              backgroundColor: alpha(CORPORATE_COLORS.secondary, 0.1),
+                              color: CORPORATE_COLORS.secondary,
+                            }}
+                          >
+                            <IconComponent size={24} />
+                          </Box>
+                          {module.tag && (
+                            <Chip
+                              label={module.tag}
+                              size="small"
+                              sx={{
+                                backgroundColor: alpha(CORPORATE_COLORS.primary, 0.08),
+                                color: CORPORATE_COLORS.primary,
+                                fontWeight: 500,
+                                fontSize: '0.7rem',
+                                height: 24,
+                              }}
+                            />
+                          )}
+                        </Stack>
+
+                        <Box sx={{ flex: 1 }}>
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              fontWeight: 600,
+                              color: 'text.primary',
+                              mb: 1.5,
+                            }}
+                          >
+                            {module.title}
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              color: 'text.secondary',
+                              lineHeight: 1.6,
+                            }}
+                          >
+                            {module.description}
+                          </Typography>
+                        </Box>
+
+                        <Divider sx={{ borderColor: 'divider' }} />
+
+                        <Stack direction="row" alignItems="center" justifyContent="space-between">
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              color: 'text.secondary',
+                              fontWeight: 500,
+                            }}
+                          >
+                            Access module
+                          </Typography>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              width: 32,
+                              height: 32,
+                              borderRadius: '50%',
+                              backgroundColor: alpha(CORPORATE_COLORS.primary, 0.1),
+                              color: CORPORATE_COLORS.primary,
+                            }}
+                          >
+                            <ArrowRight size={16} />
+                          </Box>
+                        </Stack>
+                      </Stack>
+                    </CardContent>
+                  </Card>
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
+
+        {/* Sector Exposure Section */}
+        <Card
+          elevation={0}
+          sx={{
+            backgroundColor: 'background.paper',
+            border: '1px solid',
+            borderColor: 'divider',
+            borderRadius: 2,
+          }}
+        >
+          <CardContent sx={{ p: 0 }}>
+            <Box sx={{ p: 3, borderBottom: '1px solid', borderColor: 'divider' }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 600,
+                  color: 'text.primary',
+                }}
+              >
+                Sector Exposure Analysis
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'text.secondary',
+                  mt: 0.5,
+                }}
+              >
+                Risk distribution across economic sectors
+              </Typography>
             </Box>
-          </Paper>
-        )}
+
+            <Box sx={{ p: 3 }}>
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: {
+                    xs: '1fr',
+                    sm: 'repeat(2, 1fr)',
+                    md: 'repeat(3, 1fr)',
+                  },
+                  gap: 2,
+                }}
+              >
+                {sectorExposure.map((sector) => (
+                  <Box key={sector.sector}>
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        p: 2.5,
+                        backgroundColor: alpha(
+                          sector.risk === 'High' 
+                            ? CORPORATE_COLORS.error 
+                            : sector.risk === 'Medium' 
+                            ? CORPORATE_COLORS.warning 
+                            : CORPORATE_COLORS.success,
+                          0.05
+                        ),
+                        border: '1px solid',
+                        borderColor: alpha(
+                          sector.risk === 'High' 
+                            ? CORPORATE_COLORS.error 
+                            : sector.risk === 'Medium' 
+                            ? CORPORATE_COLORS.warning 
+                            : CORPORATE_COLORS.success,
+                          0.2
+                        ),
+                        borderRadius: 2,
+                      }}
+                    >
+                      <Stack spacing={2}>
+                        <Stack direction="row" alignItems="center" justifyContent="space-between">
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              fontWeight: 600,
+                              color: 'text.primary',
+                            }}
+                          >
+                            {sector.sector}
+                          </Typography>
+                          <Chip
+                            label={sector.risk}
+                            size="small"
+                            sx={{
+                              backgroundColor: alpha(
+                                sector.risk === 'High' 
+                                  ? CORPORATE_COLORS.error 
+                                  : sector.risk === 'Medium' 
+                                  ? CORPORATE_COLORS.warning 
+                                  : CORPORATE_COLORS.success,
+                                0.1
+                              ),
+                              color: sector.risk === 'High' 
+                                ? CORPORATE_COLORS.error 
+                                : sector.risk === 'Medium' 
+                                ? CORPORATE_COLORS.warning 
+                                : CORPORATE_COLORS.success,
+                              fontWeight: 600,
+                              fontSize: '0.7rem',
+                              height: 24,
+                            }}
+                          />
+                        </Stack>
+                        
+                        <Stack direction="row" alignItems="baseline" spacing={1}>
+                          <Typography
+                            variant="h5"
+                            sx={{
+                              fontWeight: 700,
+                              color: 'text.primary',
+                            }}
+                          >
+                            ₵{sector.exposure}M
+                          </Typography>
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              color: CORPORATE_COLORS.success,
+                              fontWeight: 600,
+                              ml: 1,
+                            }}
+                          >
+                            {sector.trend}
+                          </Typography>
+                        </Stack>
+                        
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: 'text.secondary',
+                          }}
+                        >
+                          Exposure value with quarterly trend
+                        </Typography>
+                      </Stack>
+                    </Paper>
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          </CardContent>
+        </Card>
+
+        {/* Recent Activity Footer */}
+        <Box sx={{ mt: 4 }}>
+          <Typography
+            variant="caption"
+            sx={{
+              color: 'text.secondary',
+              display: 'block',
+              textAlign: 'center',
+            }}
+          >
+            Last updated: Today at 14:30 • Data refresh every 24 hours
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
