@@ -48,32 +48,12 @@ const DataViewer: React.FC = () => {
     return getAssetData(assetTypeId);
   }, [assetTypeId, getAssetData]);
 
-  const mockData = useMemo<DataRow[]>(() => {
+  const tableData = useMemo<DataRow[]>(() => {
     if (assetData && assetData.data.length > 0) {
       return assetData.data as DataRow[];
     }
-    const baseDate = new Date(2025, 0, 1).getTime();
-    return Array.from({ length: 150 }, (_, i) => ({
-      id: `${assetTypeId?.toUpperCase()}-${String(i + 1).padStart(5, "0")}`,
-      name: `Asset ${i + 1}`,
-      sector: [
-        "Manufacturing",
-        "Finance",
-        "Energy",
-        "Technology",
-        "Healthcare",
-      ][i % 5],
-      region: ["Greater Accra", "Ashanti", "Western", "Eastern", "Northern"][
-        i % 5
-      ],
-      exposure: 1000000 + i * 50000,
-      rating: ["AAA", "AA", "A", "BBB", "BB"][i % 5],
-      maturityDate: new Date(baseDate + i * 86400000 * 30)
-        .toISOString()
-        .split("T")[0],
-      riskLevel: ["Low", "Medium", "High"][i % 3],
-    }));
-  }, [assetTypeId, assetData]);
+    return [];
+  }, [assetData]);
 
   const assetTypeNames: Record<string, string> = {
     loans_advances: "Loans & Advances",
@@ -95,7 +75,7 @@ const DataViewer: React.FC = () => {
 
   const assetName = assetTypeNames[assetTypeId || ""] || "Asset Data";
 
-  const filteredData = mockData.filter((row) =>
+  const filteredData = tableData.filter((row) =>
     Object.values(row).some((value) =>
       String(value).toLowerCase().includes(searchTerm.toLowerCase()),
     ),
@@ -106,7 +86,7 @@ const DataViewer: React.FC = () => {
     page * rowsPerPage + rowsPerPage,
   );
 
-  const columns = mockData.length > 0 ? Object.keys(mockData[0]) : [];
+  const columns = tableData.length > 0 ? Object.keys(tableData[0]) : [];
 
   const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
@@ -305,6 +285,7 @@ const DataViewer: React.FC = () => {
                   direction="row"
                   justifyContent="space-between"
                   alignItems="center"
+                  sx={{ flexShrink: 0 }}
                 >
                   <TextField
                     placeholder="Search data..."
@@ -366,79 +347,226 @@ const DataViewer: React.FC = () => {
                   </Button>
                 </Stack>
 
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        {columns.map((column) => (
-                          <TableCell
-                            key={column}
-                            sx={{
-                              fontWeight: 600,
-                              py: 2,
-                              color: isDark ? "#FFFFFF" : "#0F172A",
-                              borderBottom: `2px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
-                              textTransform: "capitalize",
-                            }}
-                          >
-                            {column.replace(/([A-Z])/g, " $1").trim()}
-                          </TableCell>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {paginatedData.map((row, index) => (
-                        <TableRow
-                          key={index}
+                {tableData.length === 0 ? (
+                  <Box
+                    sx={{
+                      py: 12,
+                      textAlign: "center",
+                      borderRadius: 1.5,
+                      backgroundColor: isDark ? "#0A0E1A" : "#F8FAFC",
+                      border: `2px dashed ${isDark ? alpha("#334155", 0.5) : "#CBD5E1"}`,
+                    }}
+                  >
+                    <Stack spacing={3} alignItems="center">
+                      <Box
+                        sx={{
+                          p: 3,
+                          backgroundColor: alpha("#64748B", 0.1),
+                          borderRadius: "50%",
+                          display: "flex",
+                        }}
+                      >
+                        <FileSpreadsheet
+                          size={48}
+                          color="#64748B"
+                          strokeWidth={1.5}
+                        />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="h6"
                           sx={{
-                            "&:hover": {
-                              backgroundColor: isDark
-                                ? alpha("#1E293B", 0.5)
-                                : alpha("#F1F5F9", 0.8),
-                            },
-                            borderBottom: `1px solid ${isDark ? alpha("#334155", 0.3) : "#E2E8F0"}`,
+                            fontWeight: 600,
+                            color: isDark ? "#FFFFFF" : "#0F172A",
+                            mb: 1,
                           }}
                         >
-                          {columns.map((column) => (
-                            <TableCell
-                              key={column}
+                          No Data Available
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontSize: "0.9375rem",
+                            color: isDark ? alpha("#FFFFFF", 0.65) : "#64748B",
+                            maxWidth: 400,
+                            mx: "auto",
+                          }}
+                        >
+                          Upload a CSV file for this asset type to view the data
+                          here. Click "Back to Upload" to add data.
+                        </Typography>
+                      </Box>
+                      <Button
+                        variant="contained"
+                        startIcon={<ArrowLeft size={18} />}
+                        onClick={handleBack}
+                        sx={{
+                          backgroundColor: "#FDB913",
+                          color: "#0F172A",
+                          fontSize: "0.875rem",
+                          fontWeight: 700,
+                          px: 3,
+                          py: 1.25,
+                          borderRadius: 1.5,
+                          textTransform: "none",
+                          "&:hover": {
+                            backgroundColor: "#F59E0B",
+                          },
+                        }}
+                      >
+                        Back to Upload
+                      </Button>
+                    </Stack>
+                  </Box>
+                ) : (
+                  <>
+                    <TableContainer
+                      sx={{
+                        overflowX: "auto",
+                        border: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
+                        borderRadius: 1.5,
+                        backgroundColor: isDark ? "#0A0E1A" : "#F8FAFC",
+                        "&::-webkit-scrollbar": {
+                          width: 10,
+                          height: 10,
+                        },
+                        "&::-webkit-scrollbar-track": {
+                          background: isDark ? "#0F1623" : "#F1F5F9",
+                          borderRadius: 4,
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                          background: isDark ? "#334155" : "#CBD5E1",
+                          borderRadius: 4,
+                          "&:hover": {
+                            background: isDark ? "#475569" : "#94A3B8",
+                          },
+                        },
+                      }}
+                    >
+                      <Table
+                        sx={{
+                          minWidth: "100%",
+                          width: "100%",
+                          tableLayout: "auto",
+                          "& .MuiTableCell-root": {
+                            whiteSpace: "normal",
+                            wordWrap: "break-word",
+                            px: 3,
+                            py: 2,
+                            borderRight: `1px solid ${isDark ? alpha("#334155", 0.3) : "#E2E8F0"}`,
+                            "&:last-child": {
+                              borderRight: "none",
+                            },
+                          },
+                        }}
+                      >
+                        <TableHead>
+                          <TableRow>
+                            {columns.map((column) => (
+                              <TableCell
+                                key={column}
+                                sx={{
+                                  fontWeight: 700,
+                                  backgroundColor: isDark
+                                    ? "#0F1623"
+                                    : "#F1F5F9",
+                                  color: isDark ? "#FFFFFF" : "#0F172A",
+                                  borderBottom: `2px solid ${isDark ? "#1E293B" : "#CBD5E1"}`,
+                                  textTransform: "uppercase",
+                                  fontSize: "0.8125rem",
+                                  letterSpacing: "0.05em",
+                                }}
+                              >
+                                {column.replace(/([A-Z])/g, " $1").trim()}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {paginatedData.map((row, index) => (
+                            <TableRow
+                              key={index}
                               sx={{
-                                py: 2,
-                                color: isDark
-                                  ? alpha("#FFFFFF", 0.9)
-                                  : "#0F172A",
-                                fontSize: "0.875rem",
+                                "&:hover": {
+                                  backgroundColor: isDark
+                                    ? alpha("#1E293B", 0.7)
+                                    : alpha("#F1F5F9", 0.9),
+                                },
+                                borderBottom: `1px solid ${isDark ? alpha("#334155", 0.3) : "#E2E8F0"}`,
+                                "&:last-child": {
+                                  borderBottom: "none",
+                                },
                               }}
                             >
-                              {column === "exposure"
-                                ? `₵${Number(row[column]).toLocaleString()}`
-                                : String(row[column])}
-                            </TableCell>
+                              {columns.map((column) => (
+                                <TableCell
+                                  key={column}
+                                  sx={{
+                                    color: isDark
+                                      ? alpha("#FFFFFF", 0.9)
+                                      : "#0F172A",
+                                    fontSize: "0.9375rem",
+                                    fontWeight:
+                                      column === "exposure" ? 600 : 400,
+                                    backgroundColor: isDark
+                                      ? "#0A0E1A"
+                                      : "#FFFFFF",
+                                  }}
+                                >
+                                  {column === "exposure" ||
+                                  column === "outstandingBalance"
+                                    ? `₵${Number(row[column]).toLocaleString(
+                                        undefined,
+                                        {
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2,
+                                        },
+                                      )}`
+                                    : String(row[column])}
+                                </TableCell>
+                              ))}
+                            </TableRow>
                           ))}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
 
-                <TablePagination
-                  component="div"
-                  count={filteredData.length}
-                  page={page}
-                  onPageChange={handleChangePage}
-                  rowsPerPage={rowsPerPage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  rowsPerPageOptions={[10, 25, 50, 100]}
-                  sx={{
-                    color: isDark ? alpha("#FFFFFF", 0.7) : "#64748B",
-                    "& .MuiTablePagination-select": {
-                      color: isDark ? "#FFFFFF" : "#0F172A",
-                    },
-                    "& .MuiTablePagination-selectIcon": {
-                      color: isDark ? alpha("#FFFFFF", 0.7) : "#64748B",
-                    },
-                  }}
-                />
+                    <Box
+                      sx={{
+                        borderTop: `1px solid ${isDark ? alpha("#334155", 0.5) : "#E2E8F0"}`,
+                        pt: 2,
+                      }}
+                    >
+                      <TablePagination
+                        component="div"
+                        count={filteredData.length}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        rowsPerPage={rowsPerPage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        rowsPerPageOptions={[10, 25, 50, 100]}
+                        sx={{
+                          color: isDark ? alpha("#FFFFFF", 0.7) : "#64748B",
+                          "& .MuiTablePagination-select": {
+                            color: isDark ? "#FFFFFF" : "#0F172A",
+                            fontWeight: 600,
+                          },
+                          "& .MuiTablePagination-selectIcon": {
+                            color: isDark ? alpha("#FFFFFF", 0.7) : "#64748B",
+                          },
+                          "& .MuiTablePagination-actions": {
+                            "& button": {
+                              color: isDark ? "#FFFFFF" : "#0F172A",
+                            },
+                          },
+                          "& .MuiTablePagination-displayedRows": {
+                            fontWeight: 600,
+                            color: isDark ? "#FFFFFF" : "#0F172A",
+                          },
+                        }}
+                      />
+                    </Box>
+                  </>
+                )}
               </Stack>
             </Paper>
           </Stack>

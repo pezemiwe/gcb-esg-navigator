@@ -112,7 +112,7 @@ export default function DashboardNavbar() {
               component="img"
               src={
                 isDark
-                  ? "/assets/images/gcb_light.png"
+                  ? "/assets/images/gcb_dark.png"
                   : "/assets/images/gcb_dark.png"
               }
               alt="GCB Bank"
@@ -228,9 +228,7 @@ export default function DashboardNavbar() {
           </Box>
         </Box>
 
-        {/* Right Section - User Controls */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          {/* Quick Actions - Upload Data */}
           <Button
             variant="outlined"
             size="small"
@@ -242,6 +240,9 @@ export default function DashboardNavbar() {
               textTransform: "none",
               fontSize: "0.75rem",
               fontWeight: 500,
+              borderRadius: "6px",
+              px: 1.5,
+              height: "40px",
               "&:hover": {
                 borderColor: primaryColor,
                 backgroundColor: alpha(primaryColor, 0.1),
@@ -265,7 +266,7 @@ export default function DashboardNavbar() {
             }}
           >
             <Badge badgeContent={3} color="error">
-              <NotificationsIcon fontSize="small" />
+              <NotificationsIcon fontSize="medium" />
             </Badge>
           </IconButton>
 
@@ -323,7 +324,7 @@ export default function DashboardNavbar() {
             Climate Risk Assessment
           </MenuItem>
           <Divider sx={{ borderColor: borderColor }} />
-          <MenuItem
+          {/* <MenuItem
             onClick={() => {
               handleModulesClose();
               navigate("/cra");
@@ -345,7 +346,7 @@ export default function DashboardNavbar() {
                 Overview and key metrics
               </Typography>
             </Box>
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             onClick={() => {
               handleModulesClose();
@@ -359,7 +360,7 @@ export default function DashboardNavbar() {
                 fontWeight={600}
                 color={isDark ? textLight : textDark}
               >
-                Data Management
+                CRA Data Setup
               </Typography>
               <Typography
                 variant="caption"

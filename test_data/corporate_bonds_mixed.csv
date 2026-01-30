@@ -1,0 +1,16 @@
+BondID,Client,Economic Sector,Branch Location,Exposure Amount,Ccy,Maturity
+CB001,Fidelity Bank Ghana,Financial Services,Greater Accra,50000000,GHS,2028
+CB002,Kosmos Energy,Mining & Quarrying,Western,15000000,USD,2030
+CB003,Ghana Cocoa Board,Agriculture,Greater Accra,75000000,GHS,2025
+CB004,Bayport Savings,Financial Services,Greater Accra,12000000,GHS,2026
+CB005,Izwe Loans,Financial Services,Greater Accra,8500000,GHS,2024
+CB006,Letshego Ghana,Financial Services,Greater Accra,6000000,GHS,2025
+CB007,Quantum Terminals,Services,Eastern,22000000,GHS,2029
+CB008,Golden Star Res,Mining & Quarrying,Ashanti,35000000,USD,2027
+CB009,Vanguard Assurance,Financial Services,Greater Accra,9000000,GHS,2026
+CB010,Hollard Insurance,Financial Services,Greater Accra,11000000,GHS,2028
+CB011,Starwin Products,Manufacturing,Greater Accra,3500000,GHS,2025
+CB012,Intravenous Infusions,Manufacturing,Eastern,4200000,GHS,2026
+CB013,Mega African Capital,Financial Services,Greater Accra,5500000,GHS,2027
+CB014,Edendale Properties,Real Estate,Greater Accra,15000000,GHS,2029
+CB015,Home Finance Co,Financial Services,Greater Accra,28000000,GHS,2030

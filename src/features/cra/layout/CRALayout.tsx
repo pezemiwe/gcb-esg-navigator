@@ -1,4 +1,5 @@
 import DashboardNavbar from "@/components/layout/DashboardNavbar/DashboardNavbar";
+import { Box } from "@mui/material";
 
 interface CRALayoutProps {
   children: React.ReactNode;
@@ -6,9 +7,24 @@ interface CRALayoutProps {
 
 export default function CRALayout({ children }: CRALayoutProps) {
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <Box
+      sx={{
+        minHeight: "100vh",
+        backgroundColor: "background.default",
+        display: "flex",
+        flexDirection: "column",
+        pt: "70px", // Fixed navbar height
+      }}
+    >
       <DashboardNavbar />
-      <main className="flex-1 p-6">{children}</main>
-    </div>
+      <Box
+        component="main"
+        sx={{
+          flex: 1,
+        }}
+      >
+        {children}
+      </Box>
+    </Box>
   );
 }

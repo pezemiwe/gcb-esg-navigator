@@ -58,11 +58,36 @@ interface SegmentationState {
   filters: {
     sector: string[];
     region: string[];
+    location: string[];
+    portfolioType: string;
+    assetType: string[];
   };
   segmentedAssets: Asset[];
+  savedSegments: Array<{
+    id: string;
+    name: string;
+    description: string;
+    filters: SegmentationState["filters"];
+    createdAt: string;
+    assetCount: number;
+    totalExposure: number;
+  }>;
+  drillDownContext: {
+    active: boolean;
+    type: string;
+    value: string;
+    filters: Partial<SegmentationState["filters"]>;
+  } | null;
+  groupingMode: "none" | "location" | "borrower" | "maturity" | "sector";
   setFilters: (filters: Partial<SegmentationState["filters"]>) => void;
   resetFilters: () => void;
   setSegmentedAssets: (assets: Asset[]) => void;
+  saveSegment: (name: string, description: string, assets: Asset[]) => void;
+  loadSegment: (segmentId: string) => void;
+  deleteSegment: (segmentId: string) => void;
+  setDrillDownContext: (context: SegmentationState["drillDownContext"]) => void;
+  clearDrillDown: () => void;
+  setGroupingMode: (mode: SegmentationState["groupingMode"]) => void;
 }
 
 interface PRARiskState {
@@ -145,29 +170,83 @@ export const useCRAStatusStore = create<CRAStatusState>()(
   ),
 );
 
-export const useSegmentationStore = create<SegmentationState>()((set) => ({
-  filters: {
-    sector: [],
-    region: [],
-  },
-  segmentedAssets: [],
-  setFilters: (newFilters) => {
-    set((state) => ({
-      filters: { ...state.filters, ...newFilters },
-    }));
-  },
-  resetFilters: () => {
-    set({
+export const useSegmentationStore = create<SegmentationState>()(
+  persist(
+    (set, get) => ({
       filters: {
         sector: [],
         region: [],
+        location: [],
+        portfolioType: "All",
+        assetType: [],
       },
-    });
-  },
-  setSegmentedAssets: (assets) => {
-    set({ segmentedAssets: assets });
-  },
-}));
+      segmentedAssets: [],
+      savedSegments: [],
+      drillDownContext: null,
+      groupingMode: "none",
+      setFilters: (newFilters) => {
+        set((state) => ({
+          filters: { ...state.filters, ...newFilters },
+        }));
+      },
+      resetFilters: () => {
+        set({
+          filters: {
+            sector: [],
+            region: [],
+            location: [],
+            portfolioType: "All",
+            assetType: [],
+          },
+        });
+      },
+      setSegmentedAssets: (assets) => {
+        set({ segmentedAssets: assets });
+      },
+      saveSegment: (name, description, assets) => {
+        const { filters } = get();
+        const newSegment = {
+          id: `segment-${Date.now()}`,
+          name,
+          description,
+          filters: { ...filters },
+          createdAt: new Date().toISOString(),
+          assetCount: assets.length,
+          totalExposure: assets.reduce(
+            (sum, a) => sum + (Number(a.outstandingBalance) || 0),
+            0,
+          ),
+        };
+        set((state) => ({
+          savedSegments: [...state.savedSegments, newSegment],
+        }));
+      },
+      loadSegment: (segmentId) => {
+        const segment = get().savedSegments.find((s) => s.id === segmentId);
+        if (segment) {
+          set({ filters: { ...segment.filters } });
+        }
+      },
+      deleteSegment: (segmentId) => {
+        set((state) => ({
+          savedSegments: state.savedSegments.filter((s) => s.id !== segmentId),
+        }));
+      },
+      setDrillDownContext: (context) => {
+        set({ drillDownContext: context });
+      },
+      clearDrillDown: () => {
+        set({ drillDownContext: null });
+      },
+      setGroupingMode: (mode) => {
+        set({ groupingMode: mode });
+      },
+    }),
+    {
+      name: "cra-segmentation-storage",
+    },
+  ),
+);
 
 export const usePRARiskStore = create<PRARiskState>()((set) => ({
   selectedRisks: [],

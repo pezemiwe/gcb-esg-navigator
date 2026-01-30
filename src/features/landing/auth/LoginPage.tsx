@@ -39,7 +39,7 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/cra");
+    navigate("/dashboard");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
