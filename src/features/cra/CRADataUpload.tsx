@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
+import * as XLSX from "xlsx";
 import { useNavigate } from "react-router-dom";
 import {
   Download,
@@ -48,7 +50,7 @@ import {
 } from "@mui/material";
 import CRALayout from "./layout/CRALayout";
 import { useCRADataStore, useCRAStatusStore } from "@/store/craStore";
-import type { Asset, AssetTypeData } from "@/store/craStore";
+import type { Asset, AssetTypeData } from "@/types/craTypes";
 import { downloadExcelTemplate } from "./utils/excelTemplates";
 
 // Professional color scheme
@@ -460,14 +462,20 @@ const CRADataUpload: React.FC = () => {
     setAssetTypes((prev) =>
       prev.map((asset) => {
         const stored = assets[asset.id];
-        if (stored) {
+        // Only set as uploaded if we have valid stored data
+        if (
+          stored &&
+          stored.uploadedAt &&
+          stored.validationStatus === "validated"
+        ) {
           return {
             ...asset,
             status: "uploaded",
-            uploadedDate: stored.uploadedAt || new Date().toISOString(),
+            uploadedDate: stored.uploadedAt,
             rowCount: stored.rowCount,
             columnCount: stored.columnCount,
             uploadedFile: new File([], stored.fileName || "Stored Data"),
+            validationErrors: undefined,
           };
         }
         return asset;
@@ -508,38 +516,21 @@ const CRADataUpload: React.FC = () => {
     );
 
     try {
-      // Read and parse CSV file
-      const text = await file.text();
-      const lines = text.split("\n").filter((line) => line.trim());
+      // Read file using XLSX to support both Excel and CSV
+      const data = await file.arrayBuffer();
+      const workbook = XLSX.read(data);
+      const firstSheetName = workbook.SheetNames[0];
+      const worksheet = workbook.Sheets[firstSheetName];
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, {
+        header: 1,
+      }) as any[][];
 
-      if (lines.length === 0) {
+      if (jsonData.length === 0) {
         throw new Error("Empty file");
       }
 
-      // Parse CSV headers - handle quoted values properly
-      const parseCSVLine = (line: string): string[] => {
-        const result: string[] = [];
-        let current = "";
-        let inQuotes = false;
-
-        for (let i = 0; i < line.length; i++) {
-          const char = line[i];
-          if (char === '"') {
-            inQuotes = !inQuotes;
-          } else if (char === "," && !inQuotes) {
-            result.push(current.trim());
-            current = "";
-          } else {
-            current += char;
-          }
-        }
-        result.push(current.trim());
-        return result;
-      };
-
-      const headers = parseCSVLine(lines[0]).map((h) =>
-        h.replace(/"/g, "").trim(),
-      );
+      // Headers are in the first row
+      const headers = (jsonData[0] || []).map((h) => String(h).trim());
       const columnCount = headers.length;
 
       // Create column mapping
@@ -550,25 +541,33 @@ const CRADataUpload: React.FC = () => {
       });
 
       // Helper function to find column value
-      const findValue = (patterns: string[], values: string[]): string => {
+      const findValue = (patterns: string[], values: any[]): string => {
         for (const pattern of patterns) {
           const idx = columnMap[pattern];
-          if (idx !== undefined && values[idx]) {
-            return values[idx];
+          if (
+            idx !== undefined &&
+            values[idx] !== undefined &&
+            values[idx] !== null
+          ) {
+            return String(values[idx]).trim();
           }
         }
         return "";
       };
 
-      // Parse CSV data
+      // Parse data rows
       const parsedAssets: Asset[] = [];
-      for (let i = 1; i < lines.length; i++) {
-        const values = parseCSVLine(lines[i]).map((v) =>
-          v.replace(/"/g, "").trim(),
-        );
+      for (let i = 1; i < jsonData.length; i++) {
+        const values = jsonData[i];
 
-        if (values.length > 0 && values.some((v) => v)) {
-          // Skip empty rows
+        if (
+          values &&
+          values.length > 0 &&
+          values.some(
+            (v: any) =>
+              v !== undefined && v !== null && String(v).trim() !== "",
+          )
+        ) {
           // Find values using flexible column matching
           const id =
             findValue(
@@ -632,7 +631,7 @@ const CRADataUpload: React.FC = () => {
           // Add all other columns as additional properties
           headers.forEach((header, index) => {
             if (
-              values[index] &&
+              values[index] !== undefined &&
               ![
                 "id",
                 "borrower",
@@ -697,7 +696,7 @@ const CRADataUpload: React.FC = () => {
               ...asset,
               status: "error",
               validationErrors: [
-                `Failed to parse CSV: ${(error as Error).message}`,
+                `Failed to parse file: ${(error as Error).message}`,
               ],
             };
           }

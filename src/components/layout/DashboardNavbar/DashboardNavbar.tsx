@@ -110,11 +110,7 @@ export default function DashboardNavbar() {
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Box
               component="img"
-              src={
-                isDark
-                  ? "/assets/images/gcb_dark.png"
-                  : "/assets/images/gcb_dark.png"
-              }
+              src="/assets/images/gcb_dark.png"
               alt="GCB Bank"
               sx={{ height: 40, width: "auto" }}
             />

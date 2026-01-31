@@ -1,4 +1,4 @@
-import type { Asset, AssetTypeData } from "@/store/craStore";
+import type { Asset, AssetTypeData } from "@/types/craTypes";
 
 // Realistic Ghana locations by region
 const GHANA_LOCATIONS = {
