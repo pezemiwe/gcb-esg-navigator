@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig({
-  base: "/gcb-esg-navigator/",
+  base: "/",
   plugins: [react()],
   resolve: {
     alias: {
