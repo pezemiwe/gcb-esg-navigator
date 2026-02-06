@@ -1,0 +1,31 @@
+Loan ID,Borrower Name,Sector,Region,Outstanding Balance,Status,Origination Date
+L001,Cocoa Processing Co Ltd,Agriculture,Ashanti,25000000,Active,2023-01-15
+L002,Accra Mall Limited,Real Estate,Greater Accra,45000000,Active,2022-06-20
+L003,Gold Fields Ghana,Mining & Quarrying,Western,120000000,Active,2021-11-05
+L004,Volta River Authority,Utilities,Eastern,85000000,Active,2020-03-10
+L005,Fan Milk PLC,Manufacturing,Greater Accra,15000000,Active,2023-05-12
+L006,Enterprise Insurance,Financial Services,Greater Accra,8500000,Active,2023-09-01
+L007,Ayensu Starch Company,Agriculture,Central,4200000,Watchlist,2022-02-28
+L008,Kumasi City Market,Trade/Commerce,Ashanti,12500000,Active,2023-04-15
+L009,Takoradi Port Expansion,Construction,Western,150000000,Active,2021-08-30
+L010,Northern Electricity,Utilities,Northern,35000000,Active,2022-12-10
+L011,Ghana Nuts Limited,Agriculture,Brong Ahafo,6800000,Active,2023-02-20
+L012,Melcom Group,Trade/Commerce,Greater Accra,18000000,Active,2023-06-05
+L013,Tullow Oil Ghana,Mining & Quarrying,Western,210000000,Active,2020-05-15
+L014,Ho Teaching Hospital,Services,Volta,5500000,Active,2022-10-01
+L015,Kasapreko Company,Manufacturing,Greater Accra,14500000,Active,2023-03-10
+L016,Vokacom,Services,Greater Accra,3200000,Active,2023-11-20
+L017,Upper West Agro,Agriculture,Upper West,2100000,Watchlist,2022-07-15
+L018,Tamale Transport,Transport & Storage,Northern,4500000,Active,2023-08-05
+L019,Sunyani Timber,Manufacturing,Brong Ahafo,3800000,Active,2022-04-12
+L020,Koforidua tech,Services,Eastern,1500000,Active,2023-01-30
+L021,Tema Steel Works,Manufacturing,Greater Accra,22000000,Active,2021-09-15
+L022,Western Transport,Transport & Storage,Western,6200000,Active,2022-11-10
+L023,Bolgatanga Crafts,Trade/Commerce,Upper East,1200000,Active,2023-05-25
+L024,Oti Fisherles,Agriculture,Oti,2800000,Active,2023-07-08
+L025,Savannah Cement,Construction,Savannah,9500000,Active,2022-03-18
+L026,North East Quarry,Mining & Quarrying,North East,5500000,Active,2023-02-14
+L027,Ahafo Logging,Agriculture,Ahafo,3100000,Warning,2022-09-22
+L028,Western North Cocoa,Agriculture,Western North,7800000,Active,2023-04-30
+L029,Ghana Commercial Bank,Financial Services,Greater Accra,55000000,Active,2020-01-01
+L030,Total Energies,Mining & Quarrying,Greater Accra,45000000,Active,2021-06-15

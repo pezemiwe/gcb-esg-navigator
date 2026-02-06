@@ -1,0 +1,31 @@
+Asset ID,Guarantee Type,Beneficiary Name,Amount,Currency,Issue Date,Expiry Date,Status,Counterparty Type,Region,Country
+GUA-001,Bid Bond,Ministry of Roads,50000,GHS,2025-03-01,2025-09-01,Active,Government,Ashanti,Ghana
+GUA-002,Performance Bond,Ghana Cocoa Board,200000,GHS,2025-01-15,2026-01-15,Active,SOE,Greater Accra,Ghana
+GUA-003,Advance Payment Guarantee,VRA,150000,GHS,2024-11-20,2025-11-20,Active,SOE,Greater Accra,Ghana
+GUA-004,Customs Bond,GRA - Customs,75000,GHS,2025-02-01,2026-02-01,Active,Government,Greater Accra,Ghana
+GUA-005,Retention Bond,Kempinski Hotel,100000,GHS,2024-06-15,2025-06-15,Active,Corporate,Greater Accra,Ghana
+GUA-006,Bank Guarantee,Tullow Oil,500000,USD,2023-09-01,2026-09-01,Active,Corporate,Western,Ghana
+GUA-007,Bid Bond,Ministry of Health,30000,GHS,2025-04-01,2025-07-01,Active,Government,Greater Accra,Ghana
+GUA-008,Performance Bond,Newmont Ghana,250000,USD,2024-01-01,2025-12-31,Active,Corporate,Ahafo,Ghana
+GUA-009,Advance Payment Guarantee,GridCo,120000,GHS,2024-10-15,2025-10-15,Active,SOE,Greater Accra,Ghana
+GUA-010,Letter of Credit,Dangote Cement,300000,USD,2025-02-10,2025-05-10,Active,Corporate,International,Nigeria
+GUA-011,Standby LC,China Harbour Eng,1000000,USD,2023-05-20,2026-05-20,Active,Corporate,International,China
+GUA-012,Bid Security,GETFund,20000,GHS,2025-03-15,2025-06-15,Active,Government,Greater Accra,Ghana
+GUA-013,Performance Bond,AngloGold Ashanti,180000,USD,2024-08-01,2025-08-01,Active,Corporate,Ashanti,Ghana
+GUA-014,Immigration Bond,Ghana Immigration,10000,GHS,2025-01-01,2026-01-01,Active,Government,Greater Accra,Ghana
+GUA-015,Warehouse Bond,GRA,50000,GHS,2024-12-01,2025-12-01,Active,Government,Greater Accra,Ghana
+GUA-016,Bank Guarantee,TotalEnergies,200000,GHS,2024-07-01,2025-07-01,Active,Corporate,Greater Accra,Ghana
+GUA-017,Advance Payment Guarantee,Ghana Water Co,80000,GHS,2024-11-01,2025-05-01,Active,SOE,Greater Accra,Ghana
+GUA-018,Warranty Bond,ECG,60000,GHS,2025-02-28,2026-02-28,Active,SOE,Greater Accra,Ghana
+GUA-019,Bid Bond,Ministry of Education,40000,GHS,2025-03-20,2025-09-20,Active,Government,Greater Accra,Ghana
+GUA-020,Performance Bond,Gold Fields,220000,USD,2024-05-15,2026-05-15,Active,Corporate,Western,Ghana
+GUA-021,Shipping Guarantee,Maersk Line,15000,USD,2025-01-10,2025-04-10,Active,Corporate,International,Denmark
+GUA-022,Bank Guarantee,MTN Ghana,350000,GHS,2023-11-30,2026-11-30,Active,Corporate,Greater Accra,Ghana
+GUA-023,Standby LC,Trafigura,2000000,USD,2024-09-01,2025-09-01,Active,Corporate,International,Switzerland
+GUA-024,Bid Bond,GNPC,55000,USD,2025-04-05,2025-10-05,Active,SOE,Greater Accra,Ghana
+GUA-025,Performance Bond,Mota-Engil,160000,EUR,2024-03-01,2025-09-01,Active,Corporate,International,Portugal
+GUA-026,Advance Payment Guarantee,Judicial Service,90000,GHS,2024-12-15,2025-06-15,Active,Government,Greater Accra,Ghana
+GUA-027,Credit Guarantee,EXIM Bank Ghana,500000,GHS,2023-08-20,2028-08-20,Active,SOE,Greater Accra,Ghana
+GUA-028,Bank Guarantee,Unilever,120000,GHS,2024-06-01,2025-06-01,Active,Corporate,Greater Accra,Ghana
+GUA-029,Bid Bond,Coastal Dev Authority,25000,GHS,2025-03-10,2025-06-10,Active,Government,Greater Accra,Ghana
+GUA-030,Performance Bond,Asanteman Council,70000,GHS,2024-10-01,2025-10-01,Active,Traditional,Ashanti,Ghana

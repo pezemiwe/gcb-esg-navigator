@@ -1,0 +1,31 @@
+Asset ID,Bond Name/Issuer,Sector,Subsector,Face Value,Currency,Coupon Rate (%),Issue Date,Maturity Date,Status,Credit Rating,Market Value,Counterparty Type,Region,Country
+BND-001,Government of Ghana 2030,Public,Sovereign,5000000,GHS,19.5,2023-01-01,2030-01-01,Active,B+,5100000,Sovereign,Greater Accra,Ghana
+BND-002,Government of Ghana 2026,Public,Sovereign,3000000,GHS,18.0,2021-06-15,2026-06-15,Active,B,2950000,Sovereign,Greater Accra,Ghana
+BND-003,ESLA Bond 2029,Energy,Utility,10000000,GHS,19.0,2019-10-30,2029-10-30,Active,B,9800000,SOE,Greater Accra,Ghana
+BND-004,Cocoa Bills 182-Day,Agriculture,Commodity,2000000,GHS,22.0,2023-09-01,2024-03-01,Active,A-,2000000,SOE,Greater Accra,Ghana
+BND-005,AfDB Green Bond,International,Development,500000,USD,4.5,2020-05-15,2025-05-15,Active,AAA,510000,Multilateral,International,Ivory Coast
+BND-006,US Treasury 10Y,Public,Sovereign,1000000,USD,4.2,2022-02-15,2032-02-15,Active,AA+,980000,Sovereign,North America,USA
+BND-007,Fidelity Bank Ghana Bond,Financial,Banking,1500000,GHS,21.0,2023-04-01,2026-04-01,Active,A,1520000,Corporate,Greater Accra,Ghana
+BND-008,Bayport Savings Bond,Financial,NBFI,500000,GHS,23.0,2022-11-01,2025-11-01,Active,BBB,505000,Corporate,Greater Accra,Ghana
+BND-009,Letshego Ghana Bond,Financial,NBFI,750000,GHS,22.5,2023-08-15,2026-08-15,Active,BBB+,760000,Corporate,Greater Accra,Ghana
+BND-010,Eurobond 2032,Public,Sovereign,2000000,USD,8.75,2019-03-26,2032-03-26,Active,CCC+,1400000,Sovereign,Greater Accra,Ghana
+BND-011,Eurobond 2051,Public,Sovereign,3000000,USD,8.95,2020-02-04,2051-02-04,Active,CCC,1800000,Sovereign,Greater Accra,Ghana
+BND-012,Izwe Savings & Loans,Financial,NBFI,200000,GHS,24.0,2023-12-01,2025-12-01,Active,BBB-,200000,Corporate,Greater Accra,Ghana
+BND-013,Dolphin Cove Bond,Hospitality,Tourism,100000,USD,7.5,2021-07-01,2026-07-01,Active,BB,98000,Corporate,Volta,Ghana
+BND-014,Quantum Terminals Bond,Energy,Oil & Gas,1200000,GHS,20.0,2022-05-20,2027-05-20,Active,BBB,1210000,Corporate,Western,Ghana
+BND-015,Republic Bank Bond,Financial,Banking,1000000,USD,6.5,2021-09-15,2026-09-15,Active,BBB+,1005000,Corporate,Greater Accra,Ghana
+BND-016,VRA Domestic Bond,Energy,Power,5000000,GHS,18.5,2020-04-01,2025-04-01,Active,B,4800000,SOE,Greater Accra,Ghana
+BND-017,Ghana Home Loans Note,Real Estate,Mortgages,800000,GHS,19.5,2022-10-01,2027-10-01,Active,BBB,810000,Corporate,Greater Accra,Ghana
+BND-018,Standard Chartered Note,Financial,Banking,2000000,GHS,17.5,2021-01-15,2026-01-15,Active,A+,2050000,Corporate,Greater Accra,Ghana
+BND-019,Ecobank Transnational,Financial,Banking,500000,USD,7.0,2020-06-30,2030-06-30,Active,B-,450000,Corporate,International,Togo
+BND-020,UK Gilt 2030,Public,Sovereign,500000,GBP,3.5,2022-03-01,2030-03-01,Active,AA-,490000,Sovereign,Europe,UK
+BND-021,Nigeria Eurobond 2027,Public,Sovereign,1000000,USD,7.5,2017-02-16,2027-02-16,Active,B-,950000,Sovereign,Africa,Nigeria
+BND-022,Telecel Bond,Telecommunications,Mobile,1500000,GHS,21.5,2023-11-01,2028-11-01,Active,BBB,1500000,Corporate,Greater Accra,Ghana
+BND-023,CalBank Green Bond,Financial,Banking,1000000,GHS,18.0,2022-08-01,2027-08-01,Active,BBB,1020000,Corporate,Greater Accra,Ghana
+BND-024,Pension Fund Index Bond,Financial,Investment,3000000,GHS,20.0,2023-02-15,2026-02-15,Active,A,3050000,Corporate,Greater Accra,Ghana
+BND-025,Goil Bond,Energy,Oil Market,2000000,GHS,19.8,2022-12-01,2025-12-01,Active,BBB,2000000,Corporate,Greater Accra,Ghana
+BND-026,Treasury Bill 91-Day,Public,Sovereign,5000000,GHS,29.0,2024-01-08,2024-04-08,Active,N/A,5000000,Sovereign,Greater Accra,Ghana
+BND-027,Treasury Bill 182-Day,Public,Sovereign,3000000,GHS,31.5,2024-01-15,2024-07-15,Active,N/A,3000000,Sovereign,Greater Accra,Ghana
+BND-028,Goldman Sachs Note,Financial,Banking,200000,USD,5.5,2021-05-20,2026-05-20,Active,A,198000,Corporate,North America,USA
+BND-029,Africa Finance Corp,International,Development,400000,USD,4.8,2020-09-01,2025-09-01,Active,A3,405000,Multilateral,Africa,Nigeria
+BND-030,Local Gov Bond (Accra),Public,Municipal,1000000,GHS,18.5,2021-11-30,2026-11-30,Active,BB,990000,Sovereign,Greater Accra,Ghana

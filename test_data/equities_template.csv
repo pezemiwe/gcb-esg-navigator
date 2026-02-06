@@ -1,0 +1,31 @@
+Asset ID,Equity Name,Issuer,Sector,Subsector,Number of Shares,Market Value,Currency,Acquisition Date,Status,Counterparty Type,Region,Country
+EQ-001,MTN Ghana,Scancom Plc,Telecommunications,Mobile,100000,165000,GHS,2021-03-15,Active,Corporate,Greater Accra,Ghana
+EQ-002,GCB Bank,GCB Bank Plc,Financial,Banking,50000,210000,GHS,2020-01-20,Active,Corporate,Greater Accra,Ghana
+EQ-003,Standard Chartered,Standard Chartered Bank,Financial,Banking,20000,350000,GHS,2019-11-05,Active,Corporate,Greater Accra,Ghana
+EQ-004,Ecobank Ghana,Ecobank Ghana Plc,Financial,Banking,30000,225000,GHS,2020-08-10,Active,Corporate,Greater Accra,Ghana
+EQ-005,CalBank,CalBank Plc,Financial,Banking,150000,45000,GHS,2022-04-01,Active,Corporate,Greater Accra,Ghana
+EQ-006,FanMilk,FanMilk Plc,Manufacturing,Consumer Goods,25000,75000,GHS,2021-09-15,Active,Corporate,Greater Accra,Ghana
+EQ-007,Unilever,Unilever Ghana Plc,Manufacturing,Consumer Goods,10000,85000,GHS,2020-06-01,Active,Corporate,Greater Accra,Ghana
+EQ-008,Guinness,Guinness Ghana Breweries,Manufacturing,Beverages,40000,120000,GHS,2023-01-10,Active,Corporate,Ashanti,Ghana
+EQ-009,TotalEnergies,TotalEnergies Marketing,Energy,Oil Market,15000,135000,GHS,2022-02-28,Active,Corporate,Greater Accra,Ghana
+EQ-010,GOIL,Ghana Oil Company,Energy,Oil Market,60000,96000,GHS,2021-12-05,Active,Corporate,Greater Accra,Ghana
+EQ-011,Benso Oil Palm,Benso Oil Palm Plantation,Agriculture,Agro-processing,20000,420000,GHS,2020-05-15,Active,Corporate,Western,Ghana
+EQ-012,Tullow Oil,Tullow Oil Plc,Energy,Exploration,50000,1500000,GBP,2018-09-20,Active,Corporate,International,UK
+EQ-013,AngloGold Ashanti,AngloGold Ashanti Ltd,Mining,Gold,5000,1200000,USD,2019-03-10,Active,Corporate,Ashanti,Ghana
+EQ-014,Newmont,Newmont Corporation,Mining,Gold,2000,800000,USD,2020-07-25,Active,Corporate,International,USA
+EQ-015,Access Bank,Access Bank Ghana,Financial,Banking,30000,105000,GHS,2021-11-01,Active,Corporate,Greater Accra,Ghana
+EQ-016,Societe Generale,Societe Generale Ghana,Financial,Banking,40000,60000,GHS,2022-03-15,Active,Corporate,Greater Accra,Ghana
+EQ-017,Republic Bank,Republic Bank Ghana,Financial,Banking,35000,17500,GHS,2023-05-01,Active,Corporate,Greater Accra,Ghana
+EQ-018,Aluworks,Aluworks Plc,Manufacturing,Aluminum,100000,10000,GHS,2015-01-01,Watchlist,Corporate,Greater Accra,Ghana
+EQ-019,Cocoa Processing,Cocoa Processing Co,Manufacturing,Cocoa,500000,10000,GHS,2010-06-01,Watchlist,Corporate,Greater Accra,Ghana
+EQ-020,Mega African Capital,Mega African Capital,Financial,Investment,10000,55000,GHS,2021-08-20,Active,Corporate,Greater Accra,Ghana
+EQ-021,Enterprise Group,Enterprise Group Plc,Financial,Insurance,25000,87500,GHS,2022-01-15,Active,Corporate,Greater Accra,Ghana
+EQ-022,SIC Insurance,SIC Insurance Plc,Financial,Insurance,80000,24000,GHS,2023-04-10,Active,Corporate,Greater Accra,Ghana
+EQ-023,Trust Bank Gambia,Trust Bank Ltd,Financial,Banking,15000,25000,GMD,2020-02-01,Active,Corporate,International,Gambia
+EQ-024,Ecobank Transnational,Ecobank Transnational Inc,Financial,Banking,200000,34000,GHS,2021-10-05,Active,Corporate,International,Togo
+EQ-025,Camelot,Camelot Ghana Ltd,Services,Printing,5000,5000,GHS,2019-05-20,Active,Corporate,Greater Accra,Ghana
+EQ-026,Clydestone,Clydestone Ghana,Technology,IT,10000,5000,GHS,2020-09-01,Active,Corporate,Greater Accra,Ghana
+EQ-027,Digicut,Digicut Production,Services,Marketing,20000,2000,GHS,2021-04-15,Watchlist,Corporate,Greater Accra,Ghana
+EQ-028,Samba Foods,Samba Foods Ltd,Manufacturing,Food,50000,27500,GHS,2022-06-10,Active,Corporate,Greater Accra,Ghana
+EQ-029,Intraveneous Infusions,Intraveneous Infusions Plc,Healthcare,Pharma,100000,5000,GHS,2018-12-01,Active,Corporate,Eastern,Ghana
+EQ-030,Hords,Hords Limited,Agriculture,Processing,80000,8000,GHS,2019-07-20,Active,Corporate,Greater Accra,Ghana
